@@ -16,9 +16,13 @@ A documentation-first, pluggable formula layer for [DTCG](https://tr.designtoken
 - Not a replacement for DTCG
 - Not a general-purpose expression engine
 
+## Documentation
+
+**[dtcg-formulas.org](https://dtcg-formulas.org)**
+
 ## Status
 
-**Phase 0 — Specification only.** Parser, registry, and resolver are stubs.
+**Phase 1 — Core Implementation.** Parser and registry are shipped. Resolver is deferred to Phase 2.
 
 ## Quick look
 
@@ -67,8 +71,8 @@ summary: General-purpose snapping and rounding functions.
 | Package | Status | Description |
 |---------|--------|-------------|
 | `packages/spec` | Draft | Specifications (.module.scssdef, extension, registry) |
-| `packages/parser` | Stub | .module.scssdef parser |
-| `packages/registry` | Stub | Function registry |
+| `packages/parser` | **Shipped** | .module.scssdef parser |
+| `packages/registry` | **Shipped** | Function registry |
 | `packages/resolver` | Stub | Formula resolver |
 | `packages/docs` | Stub | Documentation generator |
 | `packages/style-dictionary-plugin` | Stub | Style Dictionary integration |
@@ -78,14 +82,9 @@ summary: General-purpose snapping and rounding functions.
 | Example | Description |
 |---------|-------------|
 | `examples/radius/` | `snap()` and `radius()` functions with full .module.scssdef |
+| `examples/builtins/` | Built-in `clamp` and `mix` function definitions |
 | `examples/spacing/` | Stub |
 | `examples/leonardo-color/` | Stub |
-
-## Docs
-
-- [Project Brief](docs/vision.md)
-- [Roadmap](docs/roadmap.md)
-- [FAQ](docs/faq.md)
 
 ## License
 
