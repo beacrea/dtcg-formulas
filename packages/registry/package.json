@@ -4,5 +4,21 @@
   "description": "Function registry for dtcg-formulas definitions and custom adapters.",
   "license": "MIT",
   "private": true,
-  "main": "index.js"
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@dtcg-formulas/parser": "*"
+  }
 }
