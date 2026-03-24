@@ -1,6 +1,6 @@
 # Roadmap
 
-## Phase 0 — Specification (current)
+## Phase 0 — Specification :white_check_mark:
 
 * Publish project brief
 * Publish `.module.scssdef` spec
@@ -8,7 +8,7 @@
 * Publish minimal function registry contract
 * Example `.module.scssdef` files (radius, math)
 
-## Phase 1 — Core Implementation
+## Phase 1 — Core Implementation (current)
 
 * Implement `.module.scssdef` parser
 * Implement minimal function registry
@@ -19,7 +19,7 @@
 
 * Ship docs generator from `.module.scssdef` metadata
 * Ship Style Dictionary plugin for `org.dtcg-formulas` resolution
-* Ship Leonardo scalar adapter example (`leonardo.color`)
+* ~~Ship Leonardo scalar adapter example (`leonardo.color`)~~ :white_check_mark:
 
 ## Phase 3 — Expansion
 

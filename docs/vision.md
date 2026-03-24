@@ -226,7 +226,7 @@ See the actual repo layout. Summary:
 /packages/style-dictionary-plugin/  SD integration (stub)
 /examples/radius/        Radius + math example
 /examples/spacing/       Spacing example (stub)
-/examples/leonardo-color/ Leonardo color example (stub)
+/examples/leonardo-color/ Leonardo color example
 /docs/                   Project docs
 ```
 

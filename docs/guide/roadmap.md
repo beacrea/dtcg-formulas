@@ -20,7 +20,7 @@
 
 - Ship docs generator from `.module.scssdef` metadata
 - Ship Style Dictionary plugin for `org.dtcg-formulas` resolution
-- Ship Leonardo scalar adapter example (`leonardo.color`)
+- [x] Ship Leonardo color definition + docs ([#8](https://github.com/beacrea/dtcg-formulas/issues/8))
 
 ## Phase 3 — Expansion
 
