@@ -56,6 +56,7 @@ export default defineConfig({
             { text: 'Radius + Shape', link: '/examples/radius' },
             { text: 'Built-in: clamp', link: '/examples/clamp' },
             { text: 'Built-in: mix', link: '/examples/mix' },
+            { text: 'Leonardo Color', link: '/examples/leonardo' },
           ],
         },
       ],
