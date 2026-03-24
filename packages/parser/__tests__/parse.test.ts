@@ -141,6 +141,91 @@ describe('parse()', () => {
     });
   });
 
+  describe('leonardo-color/color.module.scssdef', () => {
+    const result = parse(readExample('leonardo-color/color.module.scssdef'));
+
+    it('parses frontmatter with palette tag and see field', () => {
+      expect(result.frontmatter).toEqual({
+        module: 'leonardo',
+        title: 'Leonardo Color',
+        summary: 'Contrast-aware palette color generation via Adobe Leonardo.',
+        category: 'color',
+        since: '0.1.0',
+        tags: ['color', 'contrast', 'accessibility', 'leonardo', 'palette'],
+        see: ['builtins'],
+      });
+    });
+
+    it('exports a single leo function', () => {
+      expect(result.functions).toHaveLength(1);
+      expect(result.functions[0].name).toBe('leo');
+    });
+
+    it('parses 4 params with correct types and defaults', () => {
+      const leo = result.functions[0];
+      expect(leo.parameters).toHaveLength(4);
+
+      expect(leo.parameters[0]).toEqual({
+        name: 'color',
+        type: 'ref|color',
+        default: null,
+        description: 'Color family ref or raw key color value.',
+      });
+
+      expect(leo.parameters[1]).toEqual({
+        name: 'contrast',
+        type: 'number',
+        default: null,
+        description: 'Target contrast ratio between generated color and background.',
+      });
+
+      expect(leo.parameters[2]).toEqual({
+        name: 'background',
+        type: 'color|ref',
+        default: 'white',
+        description: 'Contrast surface. Defaults to white when family background is unavailable.',
+      });
+
+      expect(leo.parameters[3]).toEqual({
+        name: 'model',
+        type: 'wcag2|apca|wcag3',
+        default: 'wcag2',
+        description: 'Contrast algorithm. Default wcag2.',
+      });
+    });
+
+    it('parses multi-line @description', () => {
+      const desc = result.functions[0].description!;
+      expect(desc).toContain('Supports two modes');
+      expect(desc).toContain('family mode');
+      expect(desc).toContain('direct mode');
+      expect(desc).toContain('Family mode:');
+      expect(desc).toContain('Direct mode:');
+    });
+
+    it('parses @since', () => {
+      expect(result.functions[0].since).toBe('0.1.0');
+    });
+
+    it('parses constraints', () => {
+      expect(result.functions[0].constraints).toEqual(['$contrast > 0']);
+    });
+
+    it('parses return expression', () => {
+      expect(result.functions[0].returnExpression).toBe(
+        'leonardo($color, $contrast, $background, $model)',
+      );
+    });
+
+    it('parses 3 examples: minimal family, background override, maximal direct', () => {
+      const examples = result.functions[0].examples!;
+      expect(examples).toHaveLength(3);
+      expect(examples[0]).toBe('leo({palette.family.blue}, 4.5) → #4f6afc');
+      expect(examples[1]).toContain('#1a1a2e');
+      expect(examples[2]).toContain('apca');
+    });
+  });
+
   describe('error handling', () => {
     it('throws on missing frontmatter', () => {
       expect(() => parse('@function foo() { @return 1; }')).toThrow('Missing opening frontmatter fence');

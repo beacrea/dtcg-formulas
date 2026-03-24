@@ -1,46 +1,32 @@
 ---
 module: leonardo
 title: Leonardo Color
-summary: Contrast-aware color generation via Adobe Leonardo.
+summary: Contrast-aware palette color generation via Adobe Leonardo.
 category: color
 since: 0.1.0
-tags: [color, contrast, accessibility, leonardo]
+tags: [color, contrast, accessibility, leonardo, palette]
 see: [builtins]
 ---
 
 /// @name leo
-/// @summary Generate a color at a target contrast ratio against a background.
-/// @description Uses Leonardo's perceptual color model to find the luminance
-///   that achieves the requested APCA or WCAG contrast ratio, then returns
-///   the color at that lightness on the given hue/saturation curve.
-/// @param $key-color <color|ref> The key color defining the hue/chroma curve.
-/// @param $background <color|ref> The surface color to contrast against.
-/// @param $contrast <number> Target contrast ratio (e.g. 4.5 for WCAG AA).
-/// @param $colorspace <lch|oklch|lab|oklab|hsl> Interpolation color space. Default oklch.
+/// @summary Generate a color at a target contrast using Leonardo.
+/// @description Supports two modes. In family mode, pass a color family ref
+///   as $color — the resolver extracts the key color and default background
+///   from the family group. In direct mode, pass a raw color value as $color
+///   with an explicit $background. In both modes, $contrast is the target
+///   contrast ratio between the generated color and the background surface.
+///   Family mode: leo({palette.family.blue}, 4.5) → family color at 4.5 contrast.
+///   Direct mode: leo(#4f6afc, 4.5, #ffffff) → ad-hoc contrast color.
+/// @param $color <ref|color> Color family ref or raw key color value.
+/// @param $contrast <number> Target contrast ratio between generated color and background.
+/// @param $background <color|ref> Contrast surface. Defaults to white when family background is unavailable.
+/// @param $model <wcag2|apca|wcag3> Contrast algorithm. Default wcag2.
 /// @returns <color>
 /// @constraints $contrast > 0
-/// @example leo(#0066cc, #ffffff, 4.5) → #2b6cb0
-/// @example leo(#0066cc, #1a1a2e, 3.0) → #5a9fd4
+/// @example leo({palette.family.blue}, 4.5) → #4f6afc
+/// @example leo({palette.family.blue}, 2.89, #1a1a2e) → #8fa4ff
+/// @example leo(#4f6afc, 4.5, #ffffff, apca) → #4f6afc
 /// @since 0.1.0
-@function leo($key-color, $background, $contrast, $colorspace: oklch) {
-  @return leonardo-color($key-color, $background, $contrast, $colorspace);
-}
-
-/// @name leo-swatch
-/// @summary Generate a palette swatch at a named contrast step.
-/// @description Resolves a contrast step name (like "100", "500", "900") to a
-///   numeric contrast target via a contrast scale, then delegates to color().
-///   Steps map to contrast ratios defined by the scale — e.g. a APCA-based
-///   scale where step 100 = 1.1, step 500 = 4.5, step 900 = 13.0.
-/// @param $key-color <color|ref> The key color defining the hue/chroma curve.
-/// @param $background <color|ref> The surface color to contrast against.
-/// @param $step <number|ref> The contrast step (e.g. 100, 200, ..., 900).
-/// @param $scale <ref> Reference to a contrast scale token defining step-to-ratio mapping.
-/// @param $colorspace <lch|oklch|lab|oklab|hsl> Interpolation color space. Default oklch.
-/// @returns <color>
-/// @constraints $step >= 0
-/// @example leo-swatch(#0066cc, #ffffff, 500, {color.scale.apca}) → #2b6cb0
-/// @since 0.1.0
-@function leo-swatch($key-color, $background, $step, $scale, $colorspace: oklch) {
-  @return leo($key-color, $background, lookup($scale, $step), $colorspace);
+@function leo($color, $contrast, $background: white, $model: wcag2) {
+  @return leonardo($color, $contrast, $background, $model);
 }

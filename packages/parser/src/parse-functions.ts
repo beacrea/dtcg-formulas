@@ -152,31 +152,49 @@ function extractTags(docLines: string[]): ExtractedTags {
     examples: [],
   };
 
+  // Track which multi-line field is currently accumulating continuations.
+  // Only @description and @summary support continuation lines.
+  let currentTag: 'summary' | 'description' | null = null;
+
   for (const raw of docLines) {
     // Strip leading `/// ` or `///`
     const line = raw.replace(/^\/\/\/\s?/, '');
 
     if (line.startsWith('@name ')) {
+      currentTag = null;
       result.name = line.slice(6).trim();
     } else if (line.startsWith('@summary ')) {
       result.summary = line.slice(9).trim();
+      currentTag = 'summary';
     } else if (line.startsWith('@description ')) {
       result.description = line.slice(13).trim();
+      currentTag = 'description';
     } else if (line.startsWith('@param ')) {
+      currentTag = null;
       const param = parseParamTag(line.slice(7).trim());
       if (param) {
         result.params.set(param.name, { type: param.type, description: param.description });
       }
     } else if (line.startsWith('@returns ')) {
+      currentTag = null;
       // Extract type from <type> notation
       const match = line.slice(9).trim().match(/^<([^>]+)>/);
       result.returns = match ? match[1] : line.slice(9).trim();
     } else if (line.startsWith('@constraints ')) {
+      currentTag = null;
       result.constraints.push(line.slice(13).trim());
     } else if (line.startsWith('@example ')) {
+      currentTag = null;
       result.examples.push(line.slice(9).trim());
     } else if (line.startsWith('@since ')) {
+      currentTag = null;
       result.since = line.slice(7).trim();
+    } else if (line.startsWith('@')) {
+      // Unknown tag — stop accumulating
+      currentTag = null;
+    } else if (currentTag && line.trim()) {
+      // Continuation line for @summary or @description
+      result[currentTag] += ' ' + line.trim();
     }
   }
 
