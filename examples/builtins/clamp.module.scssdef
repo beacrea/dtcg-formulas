@@ -1,0 +1,22 @@
+---
+module: builtins
+title: "Built-in: clamp"
+summary: Constrain a value between a minimum and maximum.
+category: math
+since: 0.1.0
+tags: [math, clamp, constraint]
+---
+
+/// @name clamp
+/// @summary Constrain a value between minimum and maximum bounds.
+/// @param $min <number|dimension|ref> The lower bound.
+/// @param $preferred <number|dimension|ref> The preferred value.
+/// @param $max <number|dimension|ref> The upper bound.
+/// @returns <number|dimension>
+/// @constraints $min <= $max
+/// @example clamp(8px, 12px, 24px) → 12px
+/// @example clamp(8px, 4px, 24px) → 8px
+/// @example clamp(8px, 32px, 24px) → 24px
+@function clamp($min, $preferred, $max) {
+  @return clamp($min, $preferred, $max);
+}

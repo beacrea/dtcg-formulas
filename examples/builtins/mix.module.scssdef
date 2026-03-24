@@ -1,0 +1,22 @@
+---
+module: color
+title: Color Mixing
+summary: Blend two colors by a weighted ratio.
+category: color
+since: 0.1.0
+tags: [color, mixing, blend]
+---
+
+/// @name mix
+/// @summary Blend two colors by weight.
+/// @param $color1 <color|ref> The first color.
+/// @param $color2 <color|ref> The second color.
+/// @param $weight <number|percentage> Blend weight (0 = all $color2, 1 = all $color1). Default 0.5.
+/// @returns <color>
+/// @constraints $weight >= 0
+/// @constraints $weight <= 1
+/// @example mix(#ff0000, #0000ff, 0.5) → #800080
+/// @example mix(white, black, 0.25) → #bfbfbf
+@function mix($color1, $color2, $weight: 0.5) {
+  @return mix($color1, $color2, $weight);
+}
