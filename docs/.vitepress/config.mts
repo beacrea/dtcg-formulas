@@ -14,7 +14,7 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/' },
       { text: 'Spec', link: '/spec/scssdef' },
       { text: 'API', link: '/api/' },
-      { text: 'Examples', link: '/examples/radius' },
+      { text: 'Functions', link: '/examples/' },
     ],
 
     sidebar: {
@@ -51,12 +51,18 @@ export default defineConfig({
       ],
       '/examples/': [
         {
-          text: 'Examples',
+          text: 'Built-in Functions',
+          items: [
+            { text: 'clamp', link: '/examples/clamp' },
+            { text: 'mix', link: '/examples/mix' },
+          ],
+        },
+        {
+          text: 'Computation Adapters',
           items: [
             { text: 'Radius + Shape', link: '/examples/radius' },
-            { text: 'Built-in: clamp', link: '/examples/clamp' },
-            { text: 'Built-in: mix', link: '/examples/mix' },
             { text: 'Leonardo Color', link: '/examples/leonardo' },
+            { text: 'Color Names', link: '/examples/color-names' },
           ],
         },
       ],

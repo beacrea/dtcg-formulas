@@ -1,0 +1,23 @@
+---
+module: color-names
+title: Color Names
+summary: Human-readable color naming via nearest-match lookup.
+category: color
+since: 0.2.0
+tags: [color, naming, accessibility, semantics]
+see: [builtins]
+---
+
+/// @name color-name
+/// @summary Return the closest human-readable name for a color.
+/// @description Uses the meodai/color-names dataset (30 000+ entries) to find the
+///   perceptually nearest named color. Useful for generating accessible labels,
+///   semantic aliases, or documentation from raw hex values.
+/// @param $color <color|ref> A hex color value or token reference.
+/// @returns <string>
+/// @example color-name(#ff6347) → Tomato
+/// @example color-name(#bada55) → BadAss
+/// @example color-name({palette.brand.primary}) → Ultramarine
+@function color-name($color) {
+  @return color-name($color);
+}
