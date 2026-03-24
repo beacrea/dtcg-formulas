@@ -173,17 +173,17 @@ describe('parse()', () => {
       });
 
       expect(leo.parameters[1]).toEqual({
-        name: 'step',
+        name: 'contrast',
         type: 'number',
         default: null,
-        description: 'Tone step (50–950) or raw contrast ratio.',
+        description: 'Target contrast ratio between generated color and background.',
       });
 
       expect(leo.parameters[2]).toEqual({
         name: 'background',
         type: 'color|ref',
-        default: 'auto',
-        description: 'Contrast surface. Defaults to family background when $color is a ref.',
+        default: 'white',
+        description: 'Contrast surface. Defaults to white when family background is unavailable.',
       });
 
       expect(leo.parameters[3]).toEqual({
@@ -208,21 +208,21 @@ describe('parse()', () => {
     });
 
     it('parses constraints', () => {
-      expect(result.functions[0].constraints).toEqual(['$step > 0']);
+      expect(result.functions[0].constraints).toEqual(['$contrast > 0']);
     });
 
     it('parses return expression', () => {
       expect(result.functions[0].returnExpression).toBe(
-        'leonardo($color, $step, $background, $model)',
+        'leonardo($color, $contrast, $background, $model)',
       );
     });
 
-    it('parses 3 examples including family and direct modes', () => {
+    it('parses 3 examples: minimal family, background override, maximal direct', () => {
       const examples = result.functions[0].examples!;
       expect(examples).toHaveLength(3);
-      expect(examples[0]).toContain('{palette.family.blue}');
-      expect(examples[1]).toContain('{palette.family.blue}');
-      expect(examples[2]).toMatch(/^leo\(#4f6afc/);
+      expect(examples[0]).toBe('leo({palette.family.blue}, 4.5) → #4f6afc');
+      expect(examples[1]).toContain('#1a1a2e');
+      expect(examples[2]).toContain('apca');
     });
   });
 
