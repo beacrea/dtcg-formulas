@@ -193,7 +193,7 @@ function parseParamTag(
   // Pattern: $name <type> Description
   // or:      $name Description (no type)
   const match = text.match(
-    /^\$(\w+)\s+(?:<([^>]+)>\s+)?(.+)$/,
+    /^\$([\w-]+)\s+(?:<([^>]+)>\s+)?(.+)$/,
   );
   if (!match) return null;
 
@@ -239,7 +239,7 @@ function parseFunction(source: string): ParsedFunction {
       }
 
       // Handle $name: default or $name
-      const pMatch = trimmed.match(/^\$(\w+)(?:\s*:\s*(.+))?$/);
+      const pMatch = trimmed.match(/^\$([\w-]+)(?:\s*:\s*(.+))?$/);
       if (pMatch) {
         params.set(pMatch[1], pMatch[2]?.trim() ?? null);
       }
