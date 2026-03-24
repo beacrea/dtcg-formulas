@@ -1,0 +1,20 @@
+---
+module: math
+title: Math Utilities
+summary: General-purpose snapping and rounding functions for token derivation.
+category: foundations
+since: 0.1.0
+tags: [math, rounding, tokens]
+---
+
+/// @name snap
+/// @summary Snap a value to a step.
+/// @param $value <number|dimension|ref> The value to snap.
+/// @param $step <number|dimension|ref> The snap interval.
+/// @param $mode <nearest|floor|ceil> The rounding mode.
+/// @returns <number|dimension>
+/// @example snap(15.6px, 1px, nearest) → 16px
+/// @example snap(16.86px, 1px, ceil) → 17px
+@function snap($value, $step: 1px, $mode: nearest) {
+  @return round($value, $step, $mode);
+}

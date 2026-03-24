@@ -1,0 +1,8 @@
+{
+  "name": "@dtcg-formulas/docs",
+  "version": "0.0.0",
+  "description": "Documentation generator from .module.scssdef metadata.",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js"
+}

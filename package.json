@@ -1,0 +1,14 @@
+{
+  "name": "dtcg-formulas",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A documentation-first, pluggable formula layer for DTCG design tokens.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beacrea/dtcg-formulas.git"
+  },
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ]
+}

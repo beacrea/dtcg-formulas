@@ -1,0 +1,8 @@
+{
+  "name": "@dtcg-formulas/resolver",
+  "version": "0.0.0",
+  "description": "Scalar formula resolver for dtcg-formulas call expressions.",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js"
+}

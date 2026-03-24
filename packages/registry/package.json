@@ -1,0 +1,8 @@
+{
+  "name": "@dtcg-formulas/registry",
+  "version": "0.0.0",
+  "description": "Function registry for dtcg-formulas definitions and custom adapters.",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js"
+}

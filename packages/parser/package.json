@@ -1,0 +1,8 @@
+{
+  "name": "@dtcg-formulas/parser",
+  "version": "0.0.0",
+  "description": "Parser for .module.scssdef definition files.",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js"
+}

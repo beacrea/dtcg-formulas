@@ -1,0 +1,23 @@
+---
+module: radius
+title: Radius Utilities
+summary: Proportional radius derivation functions for component shape tokens.
+category: foundations
+since: 0.1.0
+tags: [radius, shape, tokens]
+see: [math]
+---
+
+/// @name radius
+/// @summary Compute a proportional radius from a size and ratio.
+/// @param $size <dimension|ref> Base size (typically a font-size typescale reference).
+/// @param $ratio <number|ref> Unitless ratio in the range (0, 1].
+/// @param $step <dimension|ref> Snap interval.
+/// @param $mode <nearest|floor|ceil> Rounding mode.
+/// @returns <dimension>
+/// @constraints $ratio > 0
+/// @constraints $ratio <= 1
+/// @example radius(16px, 0.6, 1px) → 10px
+@function radius($size, $ratio, $step: 1px, $mode: nearest) {
+  @return snap($size * $ratio, $step, $mode);
+}

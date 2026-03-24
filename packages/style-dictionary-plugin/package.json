@@ -1,0 +1,11 @@
+{
+  "name": "@dtcg-formulas/style-dictionary-plugin",
+  "version": "0.0.0",
+  "description": "Style Dictionary plugin for resolving org.dtcg-formulas extensions.",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js",
+  "peerDependencies": {
+    "style-dictionary": ">=4.0.0"
+  }
+}

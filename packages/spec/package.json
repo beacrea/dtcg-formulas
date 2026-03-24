@@ -1,0 +1,7 @@
+{
+  "name": "@dtcg-formulas/spec",
+  "version": "0.1.0",
+  "description": "Specifications for .module.scssdef format and org.dtcg-formulas extension.",
+  "license": "MIT",
+  "private": true
+}
