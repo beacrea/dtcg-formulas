@@ -1,0 +1,24 @@
+---
+module: fluid-size
+title: Fluid Size
+summary: Viewport-responsive sizing via CSS clamp() generation.
+category: responsive
+since: 0.2.0
+tags: [responsive, typography, spacing, clamp, viewport]
+---
+
+/// @name fluid-size
+/// @summary Generate a CSS clamp() expression for viewport-responsive sizing.
+/// @param $min <dimension|ref> Size at or below min viewport.
+/// @param $max <dimension|ref> Size at or above max viewport.
+/// @param $minVP <dimension> Min viewport width. Default 320px.
+/// @param $maxVP <dimension> Max viewport width. Default 1200px.
+/// @returns <string>
+/// @constraints $min < $max
+/// @constraints $minVP < $maxVP
+/// @example fluid-size(16px, 24px) → clamp(16px, 0.909vw + 13.09px, 24px)
+/// @example fluid-size(14px, 18px, 375px, 1440px) → clamp(14px, 0.376vw + 12.59px, 18px)
+/// @example fluid-size({type.size.min}, {type.size.max}) → clamp(...)
+@function fluid-size($min, $max, $minVP: 320px, $maxVP: 1200px) {
+  @return fluid-size($min, $max, $minVP, $maxVP);
+}

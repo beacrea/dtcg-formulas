@@ -55,6 +55,7 @@ export default defineConfig({
           items: [
             { text: 'clamp', link: '/examples/clamp' },
             { text: 'mix', link: '/examples/mix' },
+            { text: 'modular-scale', link: '/examples/modular-scale' },
           ],
         },
         {
@@ -63,6 +64,9 @@ export default defineConfig({
             { text: 'Radius + Shape', link: '/examples/radius' },
             { text: 'Leonardo Color', link: '/examples/leonardo' },
             { text: 'Color Names', link: '/examples/color-names' },
+            { text: 'Shade & Tint', link: '/examples/shade-tint' },
+            { text: 'Fluid Size', link: '/examples/fluid-size' },
+            { text: 'Material Shadow', link: '/examples/material-shadow' },
           ],
         },
       ],
