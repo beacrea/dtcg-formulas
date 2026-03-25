@@ -10,6 +10,7 @@ Built-ins are pre-registered in the registry. They wrap CSS/Sass intrinsics and 
 |----------|--------|-------------|
 | [`clamp`](/examples/clamp) | Math | Constrain a value between minimum and maximum bounds |
 | [`mix`](/examples/mix) | Color | Blend two colors by a weighted ratio |
+| [`modular-scale`](/examples/modular-scale) | Math | Compute a value at a step on a modular scale |
 
 ## Computation Adapters
 
@@ -20,6 +21,9 @@ Adapters are domain-specific functions backed by external libraries. Parse their
 | [`radius`](/examples/radius) | Shape | -- | Proportional radius from size and ratio |
 | [`leonardo`](/examples/leonardo) | Color | [Adobe Leonardo](https://leonardocolor.io/) | Contrast-aware palette color generation |
 | [`color-name`](/examples/color-names) | Color | [meodai/color-names](https://github.com/meodai/color-names) | Human-readable color naming via nearest match |
+| [`shade` / `tint`](/examples/shade-tint) | Color | [culori](https://culorijs.org/) | Perceptually uniform darkening and lightening via OKLCH |
+| [`fluid-size`](/examples/fluid-size) | Responsive | -- | Viewport-responsive sizing via CSS clamp() generation |
+| [`material-shadow`](/examples/material-shadow) | Elevation | [Material Design 3](https://m3.material.io/styles/elevation/overview) | Elevation-to-shadow mapping |
 
 ## Adding Your Own
 

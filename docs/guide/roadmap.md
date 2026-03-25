@@ -22,6 +22,10 @@
 - Ship Style Dictionary plugin for `org.dtcg-formulas` resolution
 - [x] Ship Leonardo color definition + docs ([#8](https://github.com/beacrea/dtcg-formulas/issues/8))
 - [x] Ship color-names adapter definition + docs
+- [x] Ship modular-scale built-in definition + docs
+- [x] Ship shade/tint adapter definition + docs
+- [x] Ship fluid-size adapter definition + docs
+- [x] Ship material-shadow adapter definition + docs
 
 ## Phase 3 — Expansion
 

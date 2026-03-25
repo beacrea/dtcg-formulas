@@ -1,0 +1,22 @@
+---
+module: builtins
+title: "Built-in: modular-scale"
+summary: Compute a value at a step on a modular scale.
+category: math
+since: 0.2.0
+tags: [math, scale, typography, spacing]
+---
+
+/// @name modular-scale
+/// @summary Compute a value at a step on a modular scale.
+/// @param $step <number> Scale step (0 = base, negative = smaller).
+/// @param $base <number|dimension|ref> Base value. Default 16px.
+/// @param $ratio <number> Scale ratio. Default 1.25 (major third).
+/// @returns <number|dimension>
+/// @constraints $ratio > 0
+/// @example modular-scale(0, 16px, 1.25) → 16px
+/// @example modular-scale(3, 16px, 1.25) → 31.25px
+/// @example modular-scale(-1, 16px, 1.25) → 12.8px
+@function modular-scale($step, $base: 16px, $ratio: 1.25) {
+  @return $base * pow($ratio, $step);
+}

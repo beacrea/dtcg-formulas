@@ -1,0 +1,37 @@
+---
+module: shade-tint
+title: Shade & Tint
+summary: Perceptually uniform darkening and lightening via OKLCH.
+category: color
+since: 0.2.0
+tags: [color, shade, tint, oklch, perceptual]
+see: [builtins]
+---
+
+/// @name shade
+/// @summary Darken a color by reducing OKLCH lightness toward black.
+/// @param $color <color|ref> Color to darken.
+/// @param $amount <number> 0 = unchanged, 1 = black.
+/// @returns <color>
+/// @constraints $amount >= 0
+/// @constraints $amount <= 1
+/// @example shade(#4f6afc, 0.3) → #2a4ab1
+/// @example shade({color.blue.500}, 0.5) → #1a2a80
+/// @example shade(#ff6347, 0) → #ff6347
+@function shade($color, $amount) {
+  @return shade($color, $amount);
+}
+
+/// @name tint
+/// @summary Lighten a color by increasing OKLCH lightness toward white.
+/// @param $color <color|ref> Color to lighten.
+/// @param $amount <number> 0 = unchanged, 1 = white.
+/// @returns <color>
+/// @constraints $amount >= 0
+/// @constraints $amount <= 1
+/// @example tint(#4f6afc, 0.3) → #8fa4ff
+/// @example tint({color.blue.500}, 0.5) → #b8c8ff
+/// @example tint(#ff6347, 0) → #ff6347
+@function tint($color, $amount) {
+  @return tint($color, $amount);
+}

@@ -278,6 +278,345 @@ describe('parse()', () => {
     });
   });
 
+  describe('builtins/modular-scale.module.scssdef', () => {
+    const result = parse(readExample('builtins/modular-scale.module.scssdef'));
+
+    it('parses frontmatter', () => {
+      expect(result.frontmatter).toEqual({
+        module: 'builtins',
+        title: 'Built-in: modular-scale',
+        summary: 'Compute a value at a step on a modular scale.',
+        category: 'math',
+        since: '0.2.0',
+        tags: ['math', 'scale', 'typography', 'spacing'],
+        see: undefined,
+      });
+    });
+
+    it('exports a single modular-scale function', () => {
+      expect(result.functions).toHaveLength(1);
+      expect(result.functions[0].name).toBe('modular-scale');
+    });
+
+    it('parses 3 params: $step (no default), $base (default 16px), $ratio (default 1.25)', () => {
+      const fn = result.functions[0];
+      expect(fn.parameters).toHaveLength(3);
+
+      expect(fn.parameters[0]).toEqual({
+        name: 'step',
+        type: 'number',
+        default: null,
+        description: 'Scale step (0 = base, negative = smaller).',
+      });
+
+      expect(fn.parameters[1]).toEqual({
+        name: 'base',
+        type: 'number|dimension|ref',
+        default: '16px',
+        description: 'Base value. Default 16px.',
+      });
+
+      expect(fn.parameters[2]).toEqual({
+        name: 'ratio',
+        type: 'number',
+        default: '1.25',
+        description: 'Scale ratio. Default 1.25 (major third).',
+      });
+    });
+
+    it('returns <number|dimension>', () => {
+      expect(result.functions[0].returnType).toBe('number|dimension');
+    });
+
+    it('parses constraint $ratio > 0', () => {
+      expect(result.functions[0].constraints).toEqual(['$ratio > 0']);
+    });
+
+    it('parses 3 examples', () => {
+      const examples = result.functions[0].examples!;
+      expect(examples).toHaveLength(3);
+      expect(examples[0]).toBe('modular-scale(0, 16px, 1.25) → 16px');
+      expect(examples[1]).toBe('modular-scale(3, 16px, 1.25) → 31.25px');
+      expect(examples[2]).toBe('modular-scale(-1, 16px, 1.25) → 12.8px');
+    });
+
+    it('parses return expression with pow()', () => {
+      expect(result.functions[0].returnExpression).toBe(
+        '$base * pow($ratio, $step)',
+      );
+    });
+  });
+
+  describe('shade-tint/shade-tint.module.scssdef', () => {
+    const result = parse(readExample('shade-tint/shade-tint.module.scssdef'));
+
+    it('parses frontmatter with oklch tag and see field', () => {
+      expect(result.frontmatter).toEqual({
+        module: 'shade-tint',
+        title: 'Shade & Tint',
+        summary: 'Perceptually uniform darkening and lightening via OKLCH.',
+        category: 'color',
+        since: '0.2.0',
+        tags: ['color', 'shade', 'tint', 'oklch', 'perceptual'],
+        see: ['builtins'],
+      });
+    });
+
+    it('exports 2 functions', () => {
+      expect(result.functions).toHaveLength(2);
+    });
+
+    it('shade: name and summary', () => {
+      const shade = result.functions[0];
+      expect(shade.name).toBe('shade');
+      expect(shade.summary).toBe(
+        'Darken a color by reducing OKLCH lightness toward black.',
+      );
+    });
+
+    it('shade: 2 params with no defaults', () => {
+      const shade = result.functions[0];
+      expect(shade.parameters).toHaveLength(2);
+
+      expect(shade.parameters[0]).toEqual({
+        name: 'color',
+        type: 'color|ref',
+        default: null,
+        description: 'Color to darken.',
+      });
+
+      expect(shade.parameters[1]).toEqual({
+        name: 'amount',
+        type: 'number',
+        default: null,
+        description: '0 = unchanged, 1 = black.',
+      });
+    });
+
+    it('shade: returns <color>', () => {
+      expect(result.functions[0].returnType).toBe('color');
+    });
+
+    it('shade: 2 constraints', () => {
+      expect(result.functions[0].constraints).toEqual([
+        '$amount >= 0',
+        '$amount <= 1',
+      ]);
+    });
+
+    it('shade: 3 examples', () => {
+      const examples = result.functions[0].examples!;
+      expect(examples).toHaveLength(3);
+      expect(examples[0]).toBe('shade(#4f6afc, 0.3) → #2a4ab1');
+      expect(examples[1]).toContain('{color.blue.500}');
+      expect(examples[2]).toBe('shade(#ff6347, 0) → #ff6347');
+    });
+
+    it('shade: return expression', () => {
+      expect(result.functions[0].returnExpression).toBe(
+        'shade($color, $amount)',
+      );
+    });
+
+    it('tint: name and summary', () => {
+      const tint = result.functions[1];
+      expect(tint.name).toBe('tint');
+      expect(tint.summary).toBe(
+        'Lighten a color by increasing OKLCH lightness toward white.',
+      );
+    });
+
+    it('tint: 2 params with no defaults', () => {
+      const tint = result.functions[1];
+      expect(tint.parameters).toHaveLength(2);
+
+      expect(tint.parameters[0]).toEqual({
+        name: 'color',
+        type: 'color|ref',
+        default: null,
+        description: 'Color to lighten.',
+      });
+
+      expect(tint.parameters[1]).toEqual({
+        name: 'amount',
+        type: 'number',
+        default: null,
+        description: '0 = unchanged, 1 = white.',
+      });
+    });
+
+    it('tint: returns <color>', () => {
+      expect(result.functions[1].returnType).toBe('color');
+    });
+
+    it('tint: 2 constraints', () => {
+      expect(result.functions[1].constraints).toEqual([
+        '$amount >= 0',
+        '$amount <= 1',
+      ]);
+    });
+
+    it('tint: 3 examples', () => {
+      const examples = result.functions[1].examples!;
+      expect(examples).toHaveLength(3);
+      expect(examples[0]).toBe('tint(#4f6afc, 0.3) → #8fa4ff');
+      expect(examples[1]).toContain('{color.blue.500}');
+      expect(examples[2]).toBe('tint(#ff6347, 0) → #ff6347');
+    });
+
+    it('tint: return expression', () => {
+      expect(result.functions[1].returnExpression).toBe(
+        'tint($color, $amount)',
+      );
+    });
+  });
+
+  describe('fluid-size/fluid-size.module.scssdef', () => {
+    const result = parse(readExample('fluid-size/fluid-size.module.scssdef'));
+
+    it('parses frontmatter with responsive category', () => {
+      expect(result.frontmatter).toEqual({
+        module: 'fluid-size',
+        title: 'Fluid Size',
+        summary: 'Viewport-responsive sizing via CSS clamp() generation.',
+        category: 'responsive',
+        since: '0.2.0',
+        tags: ['responsive', 'typography', 'spacing', 'clamp', 'viewport'],
+        see: undefined,
+      });
+    });
+
+    it('exports a single fluid-size function', () => {
+      expect(result.functions).toHaveLength(1);
+      expect(result.functions[0].name).toBe('fluid-size');
+    });
+
+    it('parses 4 params: 2 required, 2 with defaults', () => {
+      const fn = result.functions[0];
+      expect(fn.parameters).toHaveLength(4);
+
+      expect(fn.parameters[0]).toEqual({
+        name: 'min',
+        type: 'dimension|ref',
+        default: null,
+        description: 'Size at or below min viewport.',
+      });
+
+      expect(fn.parameters[1]).toEqual({
+        name: 'max',
+        type: 'dimension|ref',
+        default: null,
+        description: 'Size at or above max viewport.',
+      });
+
+      expect(fn.parameters[2]).toEqual({
+        name: 'minVP',
+        type: 'dimension',
+        default: '320px',
+        description: 'Min viewport width. Default 320px.',
+      });
+
+      expect(fn.parameters[3]).toEqual({
+        name: 'maxVP',
+        type: 'dimension',
+        default: '1200px',
+        description: 'Max viewport width. Default 1200px.',
+      });
+    });
+
+    it('returns <string>', () => {
+      expect(result.functions[0].returnType).toBe('string');
+    });
+
+    it('parses 2 constraints', () => {
+      expect(result.functions[0].constraints).toEqual([
+        '$min < $max',
+        '$minVP < $maxVP',
+      ]);
+    });
+
+    it('parses 3 examples', () => {
+      const examples = result.functions[0].examples!;
+      expect(examples).toHaveLength(3);
+      expect(examples[0]).toContain('clamp(16px');
+      expect(examples[1]).toContain('375px');
+      expect(examples[2]).toContain('{type.size.min}');
+    });
+
+    it('parses return expression', () => {
+      expect(result.functions[0].returnExpression).toBe(
+        'fluid-size($min, $max, $minVP, $maxVP)',
+      );
+    });
+  });
+
+  describe('material-shadow/material-shadow.module.scssdef', () => {
+    const result = parse(
+      readExample('material-shadow/material-shadow.module.scssdef'),
+    );
+
+    it('parses frontmatter with elevation category', () => {
+      expect(result.frontmatter).toEqual({
+        module: 'material-shadow',
+        title: 'Material Shadow',
+        summary: 'Elevation-to-shadow mapping following Material Design 3.',
+        category: 'elevation',
+        since: '0.2.0',
+        tags: ['elevation', 'shadow', 'material', 'depth'],
+        see: undefined,
+      });
+    });
+
+    it('exports a single material-shadow function', () => {
+      expect(result.functions).toHaveLength(1);
+      expect(result.functions[0].name).toBe('material-shadow');
+    });
+
+    it('parses 2 params: $elevation (required), $color (default)', () => {
+      const fn = result.functions[0];
+      expect(fn.parameters).toHaveLength(2);
+
+      expect(fn.parameters[0]).toEqual({
+        name: 'elevation',
+        type: 'number',
+        default: null,
+        description: 'Material elevation level (0-5).',
+      });
+
+      expect(fn.parameters[1]).toEqual({
+        name: 'color',
+        type: 'color',
+        default: '#000000',
+        description: 'Shadow base color. Default #000000.',
+      });
+    });
+
+    it('returns <string>', () => {
+      expect(result.functions[0].returnType).toBe('string');
+    });
+
+    it('parses elevation bounds constraints', () => {
+      expect(result.functions[0].constraints).toEqual([
+        '$elevation >= 0',
+        '$elevation <= 5',
+      ]);
+    });
+
+    it('parses 3 examples', () => {
+      const examples = result.functions[0].examples!;
+      expect(examples).toHaveLength(3);
+      expect(examples[0]).toBe('material-shadow(0) → none');
+      expect(examples[1]).toContain('rgba(0,0,0,0.3)');
+      expect(examples[2]).toContain('{color.shadow.base}');
+    });
+
+    it('parses return expression', () => {
+      expect(result.functions[0].returnExpression).toBe(
+        'material-shadow($elevation, $color)',
+      );
+    });
+  });
+
   describe('error handling', () => {
     it('throws on missing frontmatter', () => {
       expect(() => parse('@function foo() { @return 1; }')).toThrow('Missing opening frontmatter fence');

@@ -162,7 +162,7 @@ The function system must go beyond Sass built-ins. The registry should support f
 * optionally namespaced
 * implemented by adapters rather than language-level hacks
 
-Examples: `snap(...)`, `radius(...)`, `clamp(...)`, `mix(...)`, `leonardo.color(...)`, `color-name(...)`
+Examples: `snap(...)`, `radius(...)`, `clamp(...)`, `mix(...)`, `modular-scale(...)`, `leonardo.color(...)`, `color-name(...)`, `shade(...)`, `tint(...)`, `fluid-size(...)`, `material-shadow(...)`
 
 ---
 
@@ -205,6 +205,9 @@ A generator produces multiple values or token groups from one definition. Genera
 
 * `leonardo.color`
 * `color-names`
+* `shade-tint`
+* `fluid-size`
+* `material-shadow`
 
 ### 12.5 Example projects
 
@@ -212,6 +215,9 @@ A generator produces multiple values or token groups from one definition. Genera
 * spacing example
 * Leonardo color example
 * color-names example
+* shade-tint example
+* fluid-size example
+* material-shadow example
 
 ---
 
