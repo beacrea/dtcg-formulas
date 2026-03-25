@@ -39,6 +39,38 @@ const radius = registry.resolve(
 );
 ```
 
+## Register an Adapter
+
+Non-builtin functions (adapters) follow the same parse-then-register flow. Here's how to register the color-names adapter:
+
+```ts
+import { parse } from '@dtcg-formulas/parser';
+import { createRegistry } from '@dtcg-formulas/registry';
+import { readFileSync } from 'node:fs';
+
+const registry = createRegistry();
+// Built-ins (round, clamp, min, max) are already registered
+
+const colorNamesSrc = readFileSync(
+  'tokens/functions/color-names/color-names.module.scssdef',
+  'utf-8',
+);
+const colorNamesMod = parse(colorNamesSrc);
+
+for (const fn of colorNamesMod.functions) {
+  registry.register(
+    'tokens/functions/color-names/color-names.module.scssdef',
+    fn.name,
+    fn,
+  );
+}
+
+// Now resolvable by definition ref
+const colorName = registry.resolve(
+  'tokens/functions/color-names/color-names.module.scssdef#color-name',
+);
+```
+
 ## Writing Definition Files
 
 See the [.module.scssdef specification](/spec/scssdef) for the full format reference.

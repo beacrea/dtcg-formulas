@@ -41,6 +41,22 @@ A design token should be able to contain:
               └──────────┘
 ```
 
+## The Registry
+
+`dtcg-formulas` ships as a growing computation registry. Functions fall into two categories:
+
+**Built-in functions** are pre-loaded into the registry and wrap familiar CSS/Sass intrinsics:
+
+- `round`, `clamp`, `min`, `max`
+
+**Computation adapters** are domain-specific functions backed by external libraries, shipped as `.module.scssdef` definitions:
+
+- `leonardo` — contrast-aware color generation via Adobe Leonardo
+- `color-name` — human-readable color naming via meodai/color-names
+- `radius` — proportional shape radius computation
+
+The growth model is straightforward: author a `.module.scssdef`, wire up an evaluate adapter, and the registry gains a new computation.
+
 ## Quick Example
 
 A button's border radius derived from its font size:

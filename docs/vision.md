@@ -162,7 +162,7 @@ The function system must go beyond Sass built-ins. The registry should support f
 * optionally namespaced
 * implemented by adapters rather than language-level hacks
 
-Examples: `snap(...)`, `radius(...)`, `clamp(...)`, `mix(...)`, `leonardo.color(...)`
+Examples: `snap(...)`, `radius(...)`, `clamp(...)`, `mix(...)`, `leonardo.color(...)`, `color-name(...)`
 
 ---
 
@@ -201,15 +201,17 @@ A generator produces multiple values or token groups from one definition. Genera
 * `clamp`
 * `mix`
 
-### 12.4 One external adapter demo
+### 12.4 External adapter demos
 
 * `leonardo.color`
+* `color-names`
 
 ### 12.5 Example projects
 
 * radius example
 * spacing example
 * Leonardo color example
+* color-names example
 
 ---
 

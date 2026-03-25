@@ -20,9 +20,12 @@
 * Ship docs generator from `.module.scssdef` metadata
 * Ship Style Dictionary plugin for `org.dtcg-formulas` resolution
 * ~~Ship Leonardo scalar adapter example (`leonardo.color`)~~ :white_check_mark:
+* ~~Ship color-names adapter example~~ :white_check_mark:
 
 ## Phase 3 — Expansion
 
+* Grow the adapter catalog (spacing scales, typography, motion)
+* Publish adapter authoring guide
 * Evaluate generator/recipe model for one-to-many token derivation
 * Revisit structured extension metadata (`arguments`, `dependencies`)
 * Align with DTCG token operations developments

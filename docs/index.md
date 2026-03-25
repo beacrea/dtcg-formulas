@@ -2,8 +2,8 @@
 layout: home
 hero:
   name: dtcg-formulas
-  text: Formula provenance for design tokens
-  tagline: A documentation-first, pluggable formula layer for DTCG design tokens.
+  text: Extensible computation registry for design tokens
+  tagline: A pluggable registry of formula definitions for DTCG design tokens — built-in math, color adapters, and more.
   actions:
     - theme: brand
       text: Get Started
@@ -22,6 +22,6 @@ features:
     details: Familiar .module.scssdef format with SassDoc comments and @function declarations.
   - title: DTCG Compatible
     details: Extensions live in $extensions under org.dtcg-formulas. Output stays standards-compliant.
-  - title: Pluggable Resolution
-    details: Registry + resolver architecture supports custom function backends like Leonardo color.
+  - title: Adapter Ecosystem
+    details: Growing catalog of computation adapters — Leonardo color, color-names, and more — each a scssdef + evaluate callback away.
 ---

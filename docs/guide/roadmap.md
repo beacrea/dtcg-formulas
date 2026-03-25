@@ -21,9 +21,12 @@
 - Ship docs generator from `.module.scssdef` metadata
 - Ship Style Dictionary plugin for `org.dtcg-formulas` resolution
 - [x] Ship Leonardo color definition + docs ([#8](https://github.com/beacrea/dtcg-formulas/issues/8))
+- [x] Ship color-names adapter definition + docs
 
 ## Phase 3 — Expansion
 
+- Grow the adapter catalog (spacing scales, typography, motion)
+- Publish adapter authoring guide
 - Evaluate generator/recipe model for one-to-many token derivation
 - Revisit structured extension metadata (`arguments`, `dependencies`)
 - Align with DTCG token operations developments

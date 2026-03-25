@@ -226,6 +226,58 @@ describe('parse()', () => {
     });
   });
 
+  describe('color-names/color-names.module.scssdef', () => {
+    const result = parse(readExample('color-names/color-names.module.scssdef'));
+
+    it('parses frontmatter', () => {
+      expect(result.frontmatter).toEqual({
+        module: 'color-names',
+        title: 'Color Names',
+        summary: 'Human-readable color naming via nearest-match lookup.',
+        category: 'color',
+        since: '0.2.0',
+        tags: ['color', 'naming', 'accessibility', 'semantics'],
+        see: ['builtins'],
+      });
+    });
+
+    it('exports a single color-name function', () => {
+      expect(result.functions).toHaveLength(1);
+      expect(result.functions[0].name).toBe('color-name');
+    });
+
+    it('parses 1 param with no default', () => {
+      const fn = result.functions[0];
+      expect(fn.parameters).toHaveLength(1);
+      expect(fn.parameters[0]).toEqual({
+        name: 'color',
+        type: 'color|ref',
+        default: null,
+        description: 'A hex color value or token reference.',
+      });
+    });
+
+    it('returns <string>', () => {
+      expect(result.functions[0].returnType).toBe('string');
+    });
+
+    it('parses 3 examples', () => {
+      const examples = result.functions[0].examples!;
+      expect(examples).toHaveLength(3);
+      expect(examples[0]).toBe('color-name(#ff6347) → Tomato');
+      expect(examples[1]).toContain('#bada55');
+      expect(examples[2]).toContain('{palette.brand.primary}');
+    });
+
+    it('parses return expression', () => {
+      expect(result.functions[0].returnExpression).toBe('color-name($color)');
+    });
+
+    it('has no constraints', () => {
+      expect(result.functions[0].constraints).toBeUndefined();
+    });
+  });
+
   describe('error handling', () => {
     it('throws on missing frontmatter', () => {
       expect(() => parse('@function foo() { @return 1; }')).toThrow('Missing opening frontmatter fence');
