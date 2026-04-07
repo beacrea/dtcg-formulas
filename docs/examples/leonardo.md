@@ -67,6 +67,8 @@ Raw hex input, explicit background, APCA contrast model. Useful when working out
 
 | Model | Description | When to use |
 |-------|-------------|-------------|
-| `wcag2` | WCAG 2.x luminance contrast ratio (default) | General accessibility compliance |
-| `apca` | Advanced Perceptual Contrast Algorithm | Modern perceptual accuracy, future WCAG 3 |
+| `apca` | Advanced Perceptual Contrast Algorithm (default) | Perceptually accurate contrast — accounts for Helmholtz–Kohlrausch effect on saturated colors |
+| `wcag2` | WCAG 2.x luminance contrast ratio | Legacy compliance, achromatic-only contexts |
 | `wcag3` | WCAG 3 draft algorithm | Experimental — tracks W3C draft |
+
+> **Why APCA is the default**: WCAG2's luminance model ignores chromaticity, producing systematically wrong contrast predictions for saturated midtone colors (blue, red, green 400-700 range). APCA accounts for the Helmholtz-Kohlrausch effect — saturated colors appear darker than their luminance suggests — and produces perceptually correct text color selections. See ADR-001 in DSYS-418.

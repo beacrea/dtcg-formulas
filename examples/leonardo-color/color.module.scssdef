@@ -20,13 +20,13 @@ see: [builtins]
 /// @param $color <ref|color> Color family ref or raw key color value.
 /// @param $contrast <number> Target contrast ratio between generated color and background.
 /// @param $background <color|ref> Contrast surface. Defaults to white when family background is unavailable.
-/// @param $model <wcag2|apca|wcag3> Contrast algorithm. Default wcag2.
+/// @param $model <apca|wcag2|wcag3> Contrast algorithm. Default apca.
 /// @returns <color>
 /// @constraints $contrast > 0
-/// @example leo({palette.family.blue}, 4.5) → #4f6afc
-/// @example leo({palette.family.blue}, 2.89, #1a1a2e) → #8fa4ff
-/// @example leo(#4f6afc, 4.5, #ffffff, apca) → #4f6afc
+/// @example leo({palette.family.blue}, 60) → #4f6afc
+/// @example leo({palette.family.blue}, 45, #1a1a2e) → #8fa4ff
+/// @example leo(#4f6afc, 4.5, #ffffff, wcag2) → #4f6afc
 /// @since 0.1.0
-@function leo($color, $contrast, $background: white, $model: wcag2) {
+@function leo($color, $contrast, $background: white, $model: apca) {
   @return leonardo($color, $contrast, $background, $model);
 }
