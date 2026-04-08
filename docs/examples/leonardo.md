@@ -12,9 +12,10 @@ This example demonstrates contrast-aware color generation using [Adobe Leonardo]
 
 1. `leo()` takes a color family ref (or raw hex) and a target contrast ratio
 2. Leonardo generates a color that hits the specified contrast against the background surface
-3. Supports two modes:
+3. Supports three modes:
    - **Family mode** — pass a `{palette.family.*}` ref; the resolver extracts the key color and default background from the family group
    - **Direct mode** — pass a raw color value with an explicit `$background`
+   - **Foreground mode** — pass `optimal-foreground` as the contrast parameter to select black or white for maximum readability on the given background
 
 ## Usage Examples
 
@@ -41,6 +42,15 @@ leo(#4f6afc, 4.5, #ffffff, apca)   → #4f6afc
 ```
 
 Raw hex input, explicit background, APCA contrast model. Useful when working outside the palette system.
+
+### Foreground selection — optimal-foreground mode
+
+```scss
+leo({palette.blue.700}, optimal-foreground)   → #ffffff
+leo({palette.gray.300}, optimal-foreground)   → #000000
+```
+
+Selects black or white for maximum readability on the given background. Uses APCA by default, accounting for the Helmholtz-Kohlrausch effect on saturated chromatic midtones. This is the formula behind `on_` palette tokens.
 
 ## DTCG Extension
 

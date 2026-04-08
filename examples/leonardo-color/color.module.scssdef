@@ -9,24 +9,35 @@ see: [builtins]
 ---
 
 /// @name leo
-/// @summary Generate a color at a target contrast using Leonardo.
-/// @description Supports two modes. In family mode, pass a color family ref
-///   as $color — the resolver extracts the key color and default background
-///   from the family group. In direct mode, pass a raw color value as $color
-///   with an explicit $background. In both modes, $contrast is the target
-///   contrast ratio between the generated color and the background surface.
-///   Family mode: leo({palette.family.blue}, 4.5) → family color at 4.5 contrast.
-///   Direct mode: leo(#4f6afc, 4.5, #ffffff) → ad-hoc contrast color.
-/// @param $color <ref|color> Color family ref or raw key color value.
-/// @param $contrast <number> Target contrast ratio between generated color and background.
-/// @param $background <color|ref> Contrast surface. Defaults to white when family background is unavailable.
+/// @summary Generate a color at a target contrast, or select optimal foreground.
+/// @description Supports three modes:
+///   **Family mode** — pass a color family ref as $color; the resolver extracts
+///   the key color and default background from the family group.
+///   **Direct mode** — pass a raw color value as $color with an explicit $background.
+///   **Foreground mode** — pass `optimal-foreground` as $contrast to select black
+///   or white for maximum readability on $color as background. Accounts for the
+///   Helmholtz-Kohlrausch effect on saturated chromatic colors via APCA.
+///   In family and direct modes, $contrast is the target contrast ratio between
+///   the generated color and the background surface.
+/// @param $color <ref|color> Color family ref, raw key color, or background color (foreground mode).
+/// @param $contrast <number|optimal-foreground> Target contrast ratio, or keyword for foreground selection.
+/// @param $background <color|ref> Contrast surface. Defaults to white. Ignored in foreground mode.
 /// @param $model <apca|wcag2|wcag3> Contrast algorithm. Default apca.
 /// @returns <color>
-/// @constraints $contrast > 0
+/// @constraints $contrast > 0 when numeric
 /// @example leo({palette.family.blue}, 60) → #4f6afc
 /// @example leo({palette.family.blue}, 45, #1a1a2e) → #8fa4ff
 /// @example leo(#4f6afc, 4.5, #ffffff, wcag2) → #4f6afc
+/// @example leo({palette.blue.700}, optimal-foreground) → #ffffff
+/// @example leo({palette.gray.300}, optimal-foreground) → #000000
 /// @since 0.1.0
 @function leo($color, $contrast, $background: white, $model: apca) {
+  @if $contrast == optimal-foreground {
+    @return if(
+      leonardo-contrast($color, white, $model) > leonardo-contrast($color, black, $model),
+      white,
+      black
+    );
+  }
   @return leonardo($color, $contrast, $background, $model);
 }
