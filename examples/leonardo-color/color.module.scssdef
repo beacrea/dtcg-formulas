@@ -15,8 +15,11 @@ see: [builtins]
 ///   the key color and default background from the family group.
 ///   **Direct mode** — pass a raw color value as $color with an explicit $background.
 ///   **Foreground mode** — pass `optimal-foreground` as $contrast to select black
-///   or white for maximum readability on $color as background. Accounts for the
-///   Helmholtz-Kohlrausch effect on saturated chromatic colors via APCA.
+///   or white for maximum readability on $color as background. Always returns
+///   pure `black` (#000000) or `white` (#ffffff) — no intermediate values.
+///   Accounts for the Helmholtz-Kohlrausch effect on saturated chromatic colors
+///   via APCA. When $color is a composited result (e.g., from `composite()`),
+///   the foreground is computed against the effective visible color.
 ///   In family and direct modes, $contrast is the target contrast ratio between
 ///   the generated color and the background surface.
 /// @param $color <ref|color> Color family ref, raw key color, or background color (foreground mode).
@@ -30,6 +33,8 @@ see: [builtins]
 /// @example leo(#4f6afc, 4.5, #ffffff, wcag2) → #4f6afc
 /// @example leo({palette.blue.700}, optimal-foreground) → #ffffff
 /// @example leo({palette.gray.300}, optimal-foreground) → #000000
+/// @example leo(composite({palette.gray.500}, 0.1, {semantic.surface.canvas}), optimal-foreground) → #000000
+/// @example leo(composite({palette.blue.500}, 0.15, {semantic.surface.canvas}), optimal-foreground) → #ffffff
 /// @since 0.1.0
 @function leo($color, $contrast, $background: white, $model: apca) {
   @if $contrast == optimal-foreground {

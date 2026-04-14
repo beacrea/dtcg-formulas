@@ -1,0 +1,35 @@
+---
+module: composite
+title: Alpha Compositing
+summary: Porter-Duff over operator for compositing translucent colors onto opaque canvases.
+category: color
+since: 0.1.0
+tags: [color, alpha, compositing, contrast, accessibility]
+see: [leonardo-color]
+---
+
+/// @name composite
+/// @summary Alpha-composite a translucent color over an opaque canvas (Porter-Duff over).
+/// @description Use when a design token applies an alpha modifier to a palette color
+///   and you need the effective visible color for downstream computation (e.g.,
+///   contrast selection via `leo()`). The result is always fully opaque.
+///
+///   Common pattern with `leo()`:
+///   ```
+///   leo(composite({palette.gray.500}, 0.1, {semantic.surface.canvas}), optimal-foreground)
+///   ```
+///   This composites the translucent semantic background over the theme canvas,
+///   then selects the APCA-optimal foreground (black or white) for that effective color.
+/// @param $color <color|ref> Source color before alpha application.
+/// @param $alpha <number> Opacity in [0, 1].
+/// @param $canvas <color|ref> Opaque surface to composite over (e.g., {semantic.surface.canvas}).
+/// @returns <color> Fully opaque composited result.
+/// @constraints $alpha >= 0, $alpha <= 1
+/// @example composite(#767676, 0.1, #e6e6e6) → #dbdbdb
+/// @example composite(#c8c8c8, 0.05, #111111) → #1a1a1a
+/// @example composite(#4f6afc, 0.07, #e6e6e6) → #dbdde8
+/// @example composite(#ff8078, 0.15, #111111) → #352220
+/// @since 0.1.0
+@function composite($color, $alpha, $canvas) {
+  @return mix($color, $canvas, $alpha);
+}
