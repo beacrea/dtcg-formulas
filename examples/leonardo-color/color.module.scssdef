@@ -5,44 +5,33 @@ summary: Contrast-aware palette color generation via Adobe Leonardo.
 category: color
 since: 0.1.0
 tags: [color, contrast, accessibility, leonardo, palette]
-see: [builtins]
+see: [builtins, contrast]
 ---
 
 /// @name leo
-/// @summary Generate a color at a target contrast, or select optimal foreground.
-/// @description Supports three modes:
+/// @summary Generate a palette shade at a target contrast ratio via Leonardo.
+/// @description Supports two modes:
 ///   **Family mode** — pass a color family ref as $color; the resolver extracts
 ///   the key color and default background from the family group.
 ///   **Direct mode** — pass a raw color value as $color with an explicit $background.
-///   **Foreground mode** — pass `optimal-foreground` as $contrast to select black
-///   or white for maximum readability on $color as background. Always returns
-///   pure `black` (#000000) or `white` (#ffffff) — no intermediate values.
-///   Accounts for the Helmholtz-Kohlrausch effect on saturated chromatic colors
-///   via APCA. When $color is a composited result (e.g., from `composite()`),
-///   the foreground is computed against the effective visible color.
-///   In family and direct modes, $contrast is the target contrast ratio between
-///   the generated color and the background surface.
-/// @param $color <ref|color> Color family ref, raw key color, or background color (foreground mode).
-/// @param $contrast <number|optimal-foreground> Target contrast ratio, or keyword for foreground selection.
-/// @param $background <color|ref> Contrast surface. Defaults to white. Ignored in foreground mode.
+///   In both modes, $contrast is the target contrast ratio between the generated
+///   color and the background surface.
+///
+///   For selecting an optimal foreground color (black or white) against a
+///   background, use `optimal-foreground()` instead.
+/// @param $color <ref|color> Color family ref or raw key color.
+/// @param $contrast <number> Target contrast ratio.
+/// @param $background <color|ref> Contrast surface. Defaults to white.
 /// @param $model <apca|wcag2|wcag3> Contrast algorithm. Default apca.
 /// @returns <color>
-/// @constraints $contrast > 0 when numeric
+/// @constraints $contrast > 0
 /// @example leo({palette.family.blue}, 60) → #4f6afc
 /// @example leo({palette.family.blue}, 45, #1a1a2e) → #8fa4ff
 /// @example leo(#4f6afc, 4.5, #ffffff, wcag2) → #4f6afc
-/// @example leo({palette.blue.700}, optimal-foreground) → #ffffff
-/// @example leo({palette.gray.300}, optimal-foreground) → #000000
-/// @example leo(composite({palette.gray.500}, 0.1, {semantic.surface.canvas}), optimal-foreground) → #000000
-/// @example leo(composite({palette.blue.500}, 0.15, {semantic.surface.canvas}), optimal-foreground) → #ffffff
+/// @example leo({palette.gray.key}, 4.54, #ffffff, wcag2) → #767676
+/// @see optimal-foreground — for selecting black/white foreground against a background
 /// @since 0.1.0
+/// @changed 0.2.0 — removed foreground mode (use optimal-foreground() instead)
 @function leo($color, $contrast, $background: white, $model: apca) {
-  @if $contrast == optimal-foreground {
-    @return if(
-      leonardo-contrast($color, white, $model) > leonardo-contrast($color, black, $model),
-      white,
-      black
-    );
-  }
   @return leonardo($color, $contrast, $background, $model);
 }
