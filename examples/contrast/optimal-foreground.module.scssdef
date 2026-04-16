@@ -1,0 +1,44 @@
+---
+module: contrast
+title: Optimal Foreground
+summary: Select the highest-contrast foreground from two candidates using APCA.
+category: color
+since: 0.2.0
+tags: [color, contrast, accessibility, apca, foreground]
+see: [leonardo-color, compositing]
+---
+
+/// @name optimal-foreground
+/// @summary Select the candidate foreground with higher APCA contrast against a background.
+/// @description Given a background color and two candidate foregrounds (typically
+///   `{palette.absolute.white}` and `{palette.absolute.black}`), returns whichever
+///   candidate produces greater perceptual contrast per APCA (Accessible Perceptual
+///   Contrast Algorithm). Accounts for the Helmholtz-Kohlrausch effect on saturated
+///   chromatic backgrounds.
+///
+///   The background may be a direct color, a composited result, or a mix:
+///   ```
+///   optimal-foreground({palette.gray.50}, {palette.absolute.white}, {palette.absolute.black})
+///   optimal-foreground(composite({palette.gray.500}, 0.1, {semantic.surface.canvas}), ...)
+///   optimal-foreground(mix({palette.red.400}, {palette.orange.400}, 0.25), ...)
+///   ```
+///
+///   All inputs are explicit token references or literal values — no implicit
+///   pipeline configuration required. A consumer can recompute `$value` from
+///   the formula alone.
+/// @param $background <color|ref> The background color to contrast against.
+///   May be a raw hex, token reference, or result of composite()/mix().
+/// @param $light <color|ref> Light candidate foreground (e.g., {palette.absolute.white}).
+/// @param $dark <color|ref> Dark candidate foreground (e.g., {palette.absolute.black}).
+/// @returns <color> The candidate ($light or $dark) with higher APCA Lc contrast.
+/// @constraints $light and $dark should be near-opposite luminance extremes
+/// @example optimal-foreground({palette.gray.50}, {palette.absolute.white}, {palette.absolute.black}) → {palette.absolute.black}
+/// @example optimal-foreground({palette.gray.700}, {palette.absolute.white}, {palette.absolute.black}) → {palette.absolute.white}
+/// @example optimal-foreground(composite({palette.gray.500}, 0.1, {semantic.surface.canvas}), {palette.absolute.white}, {palette.absolute.black}) → {palette.absolute.black}
+/// @example optimal-foreground(mix({palette.red.400}, {palette.orange.400}, 0.25), {palette.absolute.white}, {palette.absolute.black}) → {palette.absolute.black}
+/// @since 0.2.0
+@function optimal-foreground($background, $light, $dark) {
+  $light-lc: apca-contrast($light, $background);
+  $dark-lc: apca-contrast($dark, $background);
+  @return if(abs($light-lc) >= abs($dark-lc), $light, $dark);
+}

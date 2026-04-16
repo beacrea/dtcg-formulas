@@ -198,7 +198,7 @@ describe('parse()', () => {
         category: 'color',
         since: '0.1.0',
         tags: ['color', 'contrast', 'accessibility', 'leonardo', 'palette'],
-        see: ['builtins'],
+        see: ['builtins', 'contrast'],
       });
     });
 
@@ -215,38 +215,36 @@ describe('parse()', () => {
         name: 'color',
         type: 'ref|color',
         default: null,
-        description: 'Color family ref or raw key color value.',
+        description: 'Color family ref or raw key color.',
       });
 
       expect(leo.parameters[1]).toEqual({
         name: 'contrast',
         type: 'number',
         default: null,
-        description: 'Target contrast ratio between generated color and background.',
+        description: 'Target contrast ratio.',
       });
 
       expect(leo.parameters[2]).toEqual({
         name: 'background',
         type: 'color|ref',
         default: 'white',
-        description: 'Contrast surface. Defaults to white when family background is unavailable.',
+        description: 'Contrast surface. Defaults to white.',
       });
 
       expect(leo.parameters[3]).toEqual({
         name: 'model',
-        type: 'wcag2|apca|wcag3',
-        default: 'wcag2',
-        description: 'Contrast algorithm. Default wcag2.',
+        type: 'apca|wcag2|wcag3',
+        default: 'apca',
+        description: 'Contrast algorithm. Default apca.',
       });
     });
 
     it('parses multi-line @description', () => {
       const desc = result.functions[0].description!;
       expect(desc).toContain('Supports two modes');
-      expect(desc).toContain('family mode');
-      expect(desc).toContain('direct mode');
-      expect(desc).toContain('Family mode:');
-      expect(desc).toContain('Direct mode:');
+      expect(desc).toContain('Family mode');
+      expect(desc).toContain('Direct mode');
     });
 
     it('parses @since', () => {
@@ -263,12 +261,13 @@ describe('parse()', () => {
       );
     });
 
-    it('parses 3 examples: minimal family, background override, maximal direct', () => {
+    it('parses 4 examples: family, background override, direct wcag2, key token', () => {
       const examples = result.functions[0].examples!;
-      expect(examples).toHaveLength(3);
-      expect(examples[0]).toBe('leo({palette.family.blue}, 4.5) → #4f6afc');
+      expect(examples).toHaveLength(4);
+      expect(examples[0]).toContain('{palette.family.blue}');
       expect(examples[1]).toContain('#1a1a2e');
-      expect(examples[2]).toContain('apca');
+      expect(examples[2]).toContain('wcag2');
+      expect(examples[3]).toContain('{palette.gray.key}');
     });
   });
 
