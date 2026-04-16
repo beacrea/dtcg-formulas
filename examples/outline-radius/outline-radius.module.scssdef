@@ -1,0 +1,33 @@
+---
+module: outline-radius
+title: Outline Radius Compensation
+summary: Outer-edge radius of a CSS outline with offset, for reproducing the silhouette in tools without native outline support.
+category: geometry
+since: 0.2.0
+tags: [radius, outline, figma, geometry, tokens]
+see: [radius]
+---
+
+/// @name outline-radius
+/// @summary Outer-edge radius of an offset outline's visual silhouette.
+/// @description Matches how modern browsers render a CSS `outline` when
+///              `outline-offset` is set on an element with `border-radius`:
+///              the outline's corners follow the element's curvature and
+///              expand outward by the offset plus the outline width.
+///              Use this to drive the corner radius of a compensating
+///              rectangle in tools (e.g., Figma) that cannot natively
+///              render `outline-offset`. FE consumers should ignore this —
+///              the browser computes it automatically.
+/// @param $inner <dimension|ref> Inner element's border-radius.
+/// @param $offset <dimension|ref> The `outline-offset` value.
+/// @param $width <dimension|ref> The `outline-width` value.
+/// @returns <dimension>
+/// @constraints $inner >= 0
+/// @constraints $offset >= 0
+/// @constraints $width > 0
+/// @example outline-radius(20px, 4px, 2px) → 26px
+/// @example outline-radius(8px, 4px, 2px) → 14px
+/// @example outline-radius(0px, 4px, 2px) → 6px
+@function outline-radius($inner, $offset, $width) {
+  @return $inner + $offset + $width;
+}
