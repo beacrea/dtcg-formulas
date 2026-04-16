@@ -101,6 +101,52 @@ describe('parse()', () => {
     });
   });
 
+  describe('outline-radius/outline-radius.module.scssdef', () => {
+    const result = parse(readExample('outline-radius/outline-radius.module.scssdef'));
+
+    it('parses frontmatter with geometry category and see:[radius]', () => {
+      expect(result.frontmatter.module).toBe('outline-radius');
+      expect(result.frontmatter.category).toBe('geometry');
+      expect(result.frontmatter.see).toEqual(['radius']);
+    });
+
+    it('extracts the outline-radius function', () => {
+      expect(result.functions).toHaveLength(1);
+      const fn = result.functions[0];
+      expect(fn.name).toBe('outline-radius');
+      expect(fn.summary).toBe("Outer-edge radius of an offset outline's visual silhouette.");
+    });
+
+    it('parses 3 positional parameters', () => {
+      const fn = result.functions[0];
+      expect(fn.parameters).toHaveLength(3);
+      expect(fn.parameters[0].name).toBe('inner');
+      expect(fn.parameters[1].name).toBe('offset');
+      expect(fn.parameters[2].name).toBe('width');
+      expect(fn.parameters.every((p) => p.default === null)).toBe(true);
+    });
+
+    it('parses non-negativity and positivity constraints', () => {
+      expect(result.functions[0].constraints).toEqual([
+        '$inner >= 0',
+        '$offset >= 0',
+        '$width > 0',
+      ]);
+    });
+
+    it('parses return expression as the sum of all three params', () => {
+      expect(result.functions[0].returnExpression).toBe('$inner + $offset + $width');
+    });
+
+    it('parses 3 examples covering friendly, rounded, and sharp shapes', () => {
+      const examples = result.functions[0].examples!;
+      expect(examples).toHaveLength(3);
+      expect(examples[0]).toBe('outline-radius(20px, 4px, 2px) → 26px');
+      expect(examples[1]).toBe('outline-radius(8px, 4px, 2px) → 14px');
+      expect(examples[2]).toBe('outline-radius(0px, 4px, 2px) → 6px');
+    });
+  });
+
   describe('builtins/clamp.module.scssdef', () => {
     const result = parse(readExample('builtins/clamp.module.scssdef'));
 
