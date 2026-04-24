@@ -178,7 +178,10 @@ function extractTags(docLines: string[]): ExtractedTags {
     } else if (line.startsWith('@returns ')) {
       currentTag = null;
       // Extract type from <type> notation
-      const match = line.slice(9).trim().match(/^<([^>]+)>/);
+      const match = line
+        .slice(9)
+        .trim()
+        .match(/^<([^>]+)>/);
       result.returns = match ? match[1] : line.slice(9).trim();
     } else if (line.startsWith('@constraints ')) {
       currentTag = null;
@@ -210,9 +213,7 @@ function parseParamTag(
 ): { name: string; type: string | null; description: string } | null {
   // Pattern: $name <type> Description
   // or:      $name Description (no type)
-  const match = text.match(
-    /^\$([\w-]+)\s+(?:<([^>]+)>\s+)?(.+)$/,
-  );
+  const match = text.match(/^\$([\w-]+)\s+(?:<([^>]+)>\s+)?(.+)$/);
   if (!match) return null;
 
   return {

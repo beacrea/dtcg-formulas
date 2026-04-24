@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { describe, expect, it } from 'vitest';
 import { parse } from '../src/index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -180,10 +180,7 @@ describe('parse()', () => {
     });
 
     it('parses multiple constraints', () => {
-      expect(result.functions[0].constraints).toEqual([
-        '$weight >= 0',
-        '$weight <= 1',
-      ]);
+      expect(result.functions[0].constraints).toEqual(['$weight >= 0', '$weight <= 1']);
     });
   });
 
@@ -386,9 +383,7 @@ describe('parse()', () => {
     });
 
     it('parses return expression with pow()', () => {
-      expect(result.functions[0].returnExpression).toBe(
-        '$base * pow($ratio, $step)',
-      );
+      expect(result.functions[0].returnExpression).toBe('$base * pow($ratio, $step)');
     });
   });
 
@@ -414,9 +409,7 @@ describe('parse()', () => {
     it('shade: name and summary', () => {
       const shade = result.functions[0];
       expect(shade.name).toBe('shade');
-      expect(shade.summary).toBe(
-        'Darken a color by reducing OKLCH lightness toward black.',
-      );
+      expect(shade.summary).toBe('Darken a color by reducing OKLCH lightness toward black.');
     });
 
     it('shade: 2 params with no defaults', () => {
@@ -443,10 +436,7 @@ describe('parse()', () => {
     });
 
     it('shade: 2 constraints', () => {
-      expect(result.functions[0].constraints).toEqual([
-        '$amount >= 0',
-        '$amount <= 1',
-      ]);
+      expect(result.functions[0].constraints).toEqual(['$amount >= 0', '$amount <= 1']);
     });
 
     it('shade: 3 examples', () => {
@@ -458,17 +448,13 @@ describe('parse()', () => {
     });
 
     it('shade: return expression', () => {
-      expect(result.functions[0].returnExpression).toBe(
-        'shade($color, $amount)',
-      );
+      expect(result.functions[0].returnExpression).toBe('shade($color, $amount)');
     });
 
     it('tint: name and summary', () => {
       const tint = result.functions[1];
       expect(tint.name).toBe('tint');
-      expect(tint.summary).toBe(
-        'Lighten a color by increasing OKLCH lightness toward white.',
-      );
+      expect(tint.summary).toBe('Lighten a color by increasing OKLCH lightness toward white.');
     });
 
     it('tint: 2 params with no defaults', () => {
@@ -495,10 +481,7 @@ describe('parse()', () => {
     });
 
     it('tint: 2 constraints', () => {
-      expect(result.functions[1].constraints).toEqual([
-        '$amount >= 0',
-        '$amount <= 1',
-      ]);
+      expect(result.functions[1].constraints).toEqual(['$amount >= 0', '$amount <= 1']);
     });
 
     it('tint: 3 examples', () => {
@@ -510,9 +493,7 @@ describe('parse()', () => {
     });
 
     it('tint: return expression', () => {
-      expect(result.functions[1].returnExpression).toBe(
-        'tint($color, $amount)',
-      );
+      expect(result.functions[1].returnExpression).toBe('tint($color, $amount)');
     });
   });
 
@@ -574,10 +555,7 @@ describe('parse()', () => {
     });
 
     it('parses 2 constraints', () => {
-      expect(result.functions[0].constraints).toEqual([
-        '$min < $max',
-        '$minVP < $maxVP',
-      ]);
+      expect(result.functions[0].constraints).toEqual(['$min < $max', '$minVP < $maxVP']);
     });
 
     it('parses 3 examples', () => {
@@ -589,16 +567,12 @@ describe('parse()', () => {
     });
 
     it('parses return expression', () => {
-      expect(result.functions[0].returnExpression).toBe(
-        'fluid-size($min, $max, $minVP, $maxVP)',
-      );
+      expect(result.functions[0].returnExpression).toBe('fluid-size($min, $max, $minVP, $maxVP)');
     });
   });
 
   describe('material-shadow/material-shadow.module.scssdef', () => {
-    const result = parse(
-      readExample('material-shadow/material-shadow.module.scssdef'),
-    );
+    const result = parse(readExample('material-shadow/material-shadow.module.scssdef'));
 
     it('parses frontmatter with elevation category', () => {
       expect(result.frontmatter).toEqual({
@@ -641,10 +615,7 @@ describe('parse()', () => {
     });
 
     it('parses elevation bounds constraints', () => {
-      expect(result.functions[0].constraints).toEqual([
-        '$elevation >= 0',
-        '$elevation <= 5',
-      ]);
+      expect(result.functions[0].constraints).toEqual(['$elevation >= 0', '$elevation <= 5']);
     });
 
     it('parses 3 examples', () => {
@@ -656,15 +627,15 @@ describe('parse()', () => {
     });
 
     it('parses return expression', () => {
-      expect(result.functions[0].returnExpression).toBe(
-        'material-shadow($elevation, $color)',
-      );
+      expect(result.functions[0].returnExpression).toBe('material-shadow($elevation, $color)');
     });
   });
 
   describe('error handling', () => {
     it('throws on missing frontmatter', () => {
-      expect(() => parse('@function foo() { @return 1; }')).toThrow('Missing opening frontmatter fence');
+      expect(() => parse('@function foo() { @return 1; }')).toThrow(
+        'Missing opening frontmatter fence',
+      );
     });
 
     it('throws on missing required frontmatter fields', () => {

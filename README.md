@@ -1,10 +1,10 @@
 # dtcg-formulas
 
-A documentation-first, pluggable formula layer for [DTCG](https://tr.designtokens.org/format/) design tokens.
+A documentation-first, pluggable formula layer for [DTCG](https://www.designtokens.org/tr/drafts/format/) design tokens.
+
+Define reusable token functions once, reference them from DTCG `$extensions`, and let a build step resolve the compute as each token's `$value`. The pipeline is tool-agnostic at its core, with first-class integrations for Style Dictionary, Terrazzo, and bare JSON builds.
 
 ## What this is
-
-`dtcg-formulas` provides:
 
 1. **`.module.scssdef`** — a Sass-inspired definition language for reusable token functions
 2. **`org.dtcg-formulas`** — a DTCG `$extensions` convention for preserving computed-value provenance
@@ -20,9 +20,29 @@ A documentation-first, pluggable formula layer for [DTCG](https://tr.designtoken
 
 **[dtcg-formulas.org](https://dtcg-formulas.org)**
 
+- [Concepts](https://dtcg-formulas.org/guide/concepts) — DTCG recap, why formulas, how this fits
+- [Authoring a Formula](https://dtcg-formulas.org/guide/authoring-a-formula) — walkthrough
+- [Integrations](https://dtcg-formulas.org/guide/integrations) — bare JSON, Style Dictionary, Terrazzo
+- [Architecture / Public Readiness](https://dtcg-formulas.org/architecture/public-readiness) — design rationale and phased roadmap
+
 ## Status
 
-**Phase 1 — Core Implementation.** Parser and registry are shipped. Resolver is deferred to Phase 2.
+**Phase 1 — Core Implementation.** Parser and registry ship as metadata-only packages today. The resolver, CLI, and executable adapters land in 0.2.0–0.3.0. See the [Roadmap](https://dtcg-formulas.org/guide/roadmap) for the full picture.
+
+## Pipeline at a glance
+
+```
+ author .module.scssdef  ──▶  reference in DTCG $extensions  ──▶  lint  ──▶  compile
+    (definition layer)          (token layer)                   (preflight)   (writes $value)
+```
+
+Today: author and reference work. Lint and compile land in 0.2.0 alongside `@dtcg-formulas/resolver` and `@dtcg-formulas/cli`.
+
+## Install
+
+```bash
+npm install @dtcg-formulas/parser @dtcg-formulas/registry
+```
 
 ## Quick look
 
@@ -55,9 +75,8 @@ summary: General-purpose snapping and rounding functions.
     "$value": "12px",
     "$extensions": {
       "org.dtcg-formulas": {
-        "syntax": "scssdef@0.1",
-        "definition": "tokens/functions/radius.module.scssdef#radius",
-        "call": "radius({typography.scale.typescale-15}, {shape.ratio.button}, 1px)"
+        "formula": "radius({typography.scale.typescale-15}, {shape.ratio.button}, 1px)",
+        "definition": "tokens/functions/radius.module.scssdef#radius"
       }
     }
   }
@@ -70,21 +89,37 @@ summary: General-purpose snapping and rounding functions.
 
 | Package | Status | Description |
 |---------|--------|-------------|
-| `packages/spec` | Draft | Specifications (.module.scssdef, extension, registry) |
-| `packages/parser` | **Shipped** | .module.scssdef parser |
-| `packages/registry` | **Shipped** | Function registry |
-| `packages/resolver` | Stub | Formula resolver |
-| `packages/docs` | Stub | Documentation generator |
-| `packages/style-dictionary-plugin` | Stub | Style Dictionary integration |
+| `@dtcg-formulas/parser` | **Shipped** | `.module.scssdef` parser |
+| `@dtcg-formulas/registry` | **Shipped** | Function registry |
+| `@dtcg-formulas/spec` | Draft (0.1.0) | Specifications (`.module.scssdef`, extension, registry) |
+| `@dtcg-formulas/resolver` | 0.2.0 | Formula resolver (pure core) |
+| `@dtcg-formulas/builtins` | 0.2.0 | Executable JS implementations for math built-ins |
+| `@dtcg-formulas/cli` | 0.2.0 | `compile`, `lint`, `check` verbs |
+| `@dtcg-formulas/adapter-*` | 0.3.0 | Executable adapter packages (leonardo, color-names, composite, etc.) |
+| `@dtcg-formulas/style-dictionary-plugin` | 0.3.0 | Style Dictionary 4.x integration |
+| `@dtcg-formulas/docs` | 0.3.0 | Docs generator from `.module.scssdef` metadata |
+| `@dtcg-formulas/terrazzo-plugin` | 0.4.0+ | Terrazzo integration |
+
+See the docs site's [Functions](https://dtcg-formulas.org/examples/) page for the full catalog of built-ins and adapters.
 
 ## Examples
 
 | Example | Description |
 |---------|-------------|
-| `examples/radius/` | `snap()` and `radius()` functions with full .module.scssdef |
-| `examples/builtins/` | Built-in `clamp` and `mix` function definitions |
-| `examples/spacing/` | Stub |
-| `examples/leonardo-color/` | Stub |
+| `examples/radius/` | `snap()` and `radius()` functions |
+| `examples/builtins/` | `clamp`, `mix`, `modular-scale` built-ins |
+| `examples/leonardo-color/` | Leonardo contrast-aware color generation |
+| `examples/compositing/` | Porter-Duff alpha compositing |
+| `examples/contrast/` | APCA-based optimal foreground selection |
+| `examples/color-names/` | Named color lookup |
+| `examples/shade-tint/` | Shade and tint derivation |
+| `examples/fluid-size/` | Fluid responsive sizing |
+| `examples/material-shadow/` | Material elevation shadows |
+| `examples/outline-radius/` | Outline corner radius compensation |
+
+## Contributing
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the development loop, how to add a formula, and the release process.
 
 ## License
 

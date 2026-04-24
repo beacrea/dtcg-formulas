@@ -12,13 +12,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "outDir": "dist",
-    "rootDir": "."
+    "noEmit": true
   },
-  "references": [
-    { "path": "packages/parser" },
-    { "path": "packages/registry" }
-  ],
-  "include": [],
-  "exclude": ["node_modules", "dist"]
+  "include": ["packages/*/src", "packages/*/__tests__"],
+  "exclude": ["node_modules", "**/dist"]
 }
