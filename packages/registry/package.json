@@ -1,6 +1,6 @@
 {
   "name": "@dtcg-formulas/registry",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Function declaration registry for dtcg-formulas with built-in math functions.",
   "license": "MIT",
   "type": "module",
@@ -20,7 +20,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@dtcg-formulas/parser": "^0.1.0"
+    "@dtcg-formulas/parser": "*"
   },
   "devDependencies": {
     "tsup": "^8.3.0"
