@@ -20,9 +20,7 @@ export function parseFrontmatter(source: string): {
   }
 
   // Find closing fence
-  const closingFenceIdx = lines.findIndex(
-    (l, i) => i > firstFenceIdx && l.trim() === FENCE,
-  );
+  const closingFenceIdx = lines.findIndex((l, i) => i > firstFenceIdx && l.trim() === FENCE);
   if (closingFenceIdx === -1) {
     throw new Error('Missing closing frontmatter fence (---)');
   }

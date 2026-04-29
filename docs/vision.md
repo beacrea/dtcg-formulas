@@ -279,7 +279,7 @@ Mitigation: prioritize the parser, extension spec, and one resolver path first.
 
 ## 17. Initial roadmap
 
-See `docs/roadmap.md`.
+See [`docs/guide/roadmap.md`](./guide/roadmap.md).
 
 ---
 

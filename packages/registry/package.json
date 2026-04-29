@@ -1,24 +1,45 @@
 {
   "name": "@dtcg-formulas/registry",
   "version": "0.0.0",
-  "description": "Function registry for dtcg-formulas definitions and custom adapters.",
+  "description": "Function declaration registry for dtcg-formulas with built-in math functions.",
   "license": "MIT",
-  "private": true,
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": ["dist", "README.md", "CHANGELOG.md"],
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsup",
     "clean": "rm -rf dist"
   },
   "dependencies": {
     "@dtcg-formulas/parser": "*"
-  }
+  },
+  "devDependencies": {
+    "tsup": "^8.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beacrea/dtcg-formulas.git",
+    "directory": "packages/registry"
+  },
+  "bugs": {
+    "url": "https://github.com/beacrea/dtcg-formulas/issues"
+  },
+  "homepage": "https://dtcg-formulas.org",
+  "keywords": ["dtcg", "design-tokens", "formulas", "registry"]
 }

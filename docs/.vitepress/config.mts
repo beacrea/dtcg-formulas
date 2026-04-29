@@ -2,12 +2,9 @@ import { defineConfig } from 'vitepress';
 
 export default defineConfig({
   title: 'dtcg-formulas',
-  description:
-    'A documentation-first, pluggable formula layer for DTCG design tokens.',
+  description: 'A documentation-first, pluggable formula layer for DTCG design tokens.',
 
-  head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
-  ],
+  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]],
 
   themeConfig: {
     nav: [
@@ -15,6 +12,7 @@ export default defineConfig({
       { text: 'Spec', link: '/spec/scssdef' },
       { text: 'API', link: '/api/' },
       { text: 'Functions', link: '/examples/' },
+      { text: 'Architecture', link: '/architecture/public-readiness' },
     ],
 
     sidebar: {
@@ -24,6 +22,20 @@ export default defineConfig({
           items: [
             { text: 'What is dtcg-formulas?', link: '/guide/' },
             { text: 'Getting Started', link: '/guide/getting-started' },
+          ],
+        },
+        {
+          text: 'Learn',
+          items: [
+            { text: 'Concepts', link: '/guide/concepts' },
+            { text: 'Authoring a Formula', link: '/guide/authoring-a-formula' },
+            { text: 'Integrations', link: '/guide/integrations' },
+            { text: 'Troubleshooting', link: '/guide/troubleshooting' },
+          ],
+        },
+        {
+          text: 'Reference',
+          items: [
             { text: 'FAQ', link: '/guide/faq' },
             { text: 'Roadmap', link: '/guide/roadmap' },
           ],
@@ -59,10 +71,18 @@ export default defineConfig({
           ],
         },
         {
+          text: 'Contrast & Compositing',
+          items: [
+            { text: 'Composite', link: '/examples/composite' },
+            { text: 'Optimal Foreground', link: '/examples/optimal-foreground' },
+            { text: 'Leonardo Color', link: '/examples/leonardo' },
+          ],
+        },
+        {
           text: 'Computation Adapters',
           items: [
             { text: 'Radius + Shape', link: '/examples/radius' },
-            { text: 'Leonardo Color', link: '/examples/leonardo' },
+            { text: 'Outline Radius', link: '/examples/outline-radius' },
             { text: 'Color Names', link: '/examples/color-names' },
             { text: 'Shade & Tint', link: '/examples/shade-tint' },
             { text: 'Fluid Size', link: '/examples/fluid-size' },
@@ -70,11 +90,15 @@ export default defineConfig({
           ],
         },
       ],
+      '/architecture/': [
+        {
+          text: 'Architecture',
+          items: [{ text: 'Public Readiness', link: '/architecture/public-readiness' }],
+        },
+      ],
     },
 
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/beacrea/dtcg-formulas' },
-    ],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/beacrea/dtcg-formulas' }],
 
     footer: {
       message: 'Released under the MIT License.',

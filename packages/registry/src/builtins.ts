@@ -8,9 +8,19 @@ export const BUILTINS: ReadonlyArray<{ key: string; declaration: FunctionDeclara
       name: 'round',
       summary: 'Round a value to the nearest step with configurable mode.',
       parameters: [
-        { name: 'value', type: 'number|dimension', default: null, description: 'The value to round.' },
+        {
+          name: 'value',
+          type: 'number|dimension',
+          default: null,
+          description: 'The value to round.',
+        },
         { name: 'step', type: 'number|dimension', default: '1', description: 'The rounding step.' },
-        { name: 'mode', type: 'nearest|floor|ceil', default: 'nearest', description: 'Rounding mode.' },
+        {
+          name: 'mode',
+          type: 'nearest|floor|ceil',
+          default: 'nearest',
+          description: 'Rounding mode.',
+        },
       ],
       returnType: 'number|dimension',
       returnExpression: 'round($value, $step, $mode)',
@@ -23,7 +33,12 @@ export const BUILTINS: ReadonlyArray<{ key: string; declaration: FunctionDeclara
       summary: 'Constrain a value between minimum and maximum bounds.',
       parameters: [
         { name: 'min', type: 'number|dimension', default: null, description: 'Lower bound.' },
-        { name: 'preferred', type: 'number|dimension', default: null, description: 'Preferred value.' },
+        {
+          name: 'preferred',
+          type: 'number|dimension',
+          default: null,
+          description: 'Preferred value.',
+        },
         { name: 'max', type: 'number|dimension', default: null, description: 'Upper bound.' },
       ],
       returnType: 'number|dimension',
@@ -37,7 +52,12 @@ export const BUILTINS: ReadonlyArray<{ key: string; declaration: FunctionDeclara
       name: 'min',
       summary: 'Return the smallest of the given values.',
       parameters: [
-        { name: 'values', type: 'number|dimension', default: null, description: 'Values to compare.' },
+        {
+          name: 'values',
+          type: 'number|dimension',
+          default: null,
+          description: 'Values to compare.',
+        },
       ],
       returnType: 'number|dimension',
       returnExpression: 'min(...$values)',
@@ -49,7 +69,12 @@ export const BUILTINS: ReadonlyArray<{ key: string; declaration: FunctionDeclara
       name: 'max',
       summary: 'Return the largest of the given values.',
       parameters: [
-        { name: 'values', type: 'number|dimension', default: null, description: 'Values to compare.' },
+        {
+          name: 'values',
+          type: 'number|dimension',
+          default: null,
+          description: 'Values to compare.',
+        },
       ],
       returnType: 'number|dimension',
       returnExpression: 'max(...$values)',

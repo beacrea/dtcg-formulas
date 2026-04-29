@@ -1,14 +1,29 @@
-import { describe, it, expect } from 'vitest';
-import { createRegistry } from '../src/index.js';
 import type { FunctionDeclaration } from '@dtcg-formulas/parser';
+import { describe, expect, it } from 'vitest';
+import { createRegistry } from '../src/index.js';
 
 const mockDeclaration: FunctionDeclaration = {
   name: 'snap',
   summary: 'Snap a value to a step.',
   parameters: [
-    { name: 'value', type: 'number|dimension|ref', default: null, description: 'The value to snap.' },
-    { name: 'step', type: 'number|dimension|ref', default: '1px', description: 'The snap interval.' },
-    { name: 'mode', type: 'nearest|floor|ceil', default: 'nearest', description: 'The rounding mode.' },
+    {
+      name: 'value',
+      type: 'number|dimension|ref',
+      default: null,
+      description: 'The value to snap.',
+    },
+    {
+      name: 'step',
+      type: 'number|dimension|ref',
+      default: '1px',
+      description: 'The snap interval.',
+    },
+    {
+      name: 'mode',
+      type: 'nearest|floor|ceil',
+      default: 'nearest',
+      description: 'The rounding mode.',
+    },
   ],
   returnType: 'number|dimension',
   returnExpression: 'round($value, $step, $mode)',
@@ -19,12 +34,7 @@ describe('createRegistry()', () => {
   it('pre-registers built-in functions', () => {
     const reg = createRegistry();
     const builtins = reg.list().filter((k) => k.startsWith('builtins#'));
-    expect(builtins).toEqual([
-      'builtins#clamp',
-      'builtins#max',
-      'builtins#min',
-      'builtins#round',
-    ]);
+    expect(builtins).toEqual(['builtins#clamp', 'builtins#max', 'builtins#min', 'builtins#round']);
   });
 
   it('resolves built-in round', () => {
