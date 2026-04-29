@@ -4,6 +4,10 @@
   "description": "Parser for .module.scssdef definition files used by dtcg-formulas.",
   "license": "MIT",
   "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
