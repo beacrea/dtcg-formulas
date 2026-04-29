@@ -1,6 +1,6 @@
 {
   "name": "@dtcg-formulas/registry",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Function declaration registry for dtcg-formulas with built-in math functions.",
   "license": "MIT",
   "type": "module",
@@ -18,7 +18,11 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist", "README.md", "CHANGELOG.md"],
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "build": "tsup",
     "clean": "rm -rf dist"
@@ -41,5 +45,10 @@
     "url": "https://github.com/beacrea/dtcg-formulas/issues"
   },
   "homepage": "https://dtcg-formulas.org",
-  "keywords": ["dtcg", "design-tokens", "formulas", "registry"]
+  "keywords": [
+    "dtcg",
+    "design-tokens",
+    "formulas",
+    "registry"
+  ]
 }

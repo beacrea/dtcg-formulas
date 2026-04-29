@@ -1,9 +1,12 @@
 {
   "name": "@dtcg-formulas/spec",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Specifications for the .module.scssdef format and the org.dtcg-formulas DTCG extension.",
   "license": "MIT",
-  "files": ["*.md", "schemas"],
+  "files": [
+    "*.md",
+    "schemas"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -16,5 +19,10 @@
     "url": "https://github.com/beacrea/dtcg-formulas/issues"
   },
   "homepage": "https://dtcg-formulas.org/spec/scssdef",
-  "keywords": ["dtcg", "design-tokens", "formulas", "specification"]
+  "keywords": [
+    "dtcg",
+    "design-tokens",
+    "formulas",
+    "specification"
+  ]
 }

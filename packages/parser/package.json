@@ -1,6 +1,6 @@
 {
   "name": "@dtcg-formulas/parser",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Parser for .module.scssdef definition files used by dtcg-formulas.",
   "license": "MIT",
   "type": "module",
@@ -18,7 +18,11 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist", "README.md", "CHANGELOG.md"],
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "build": "tsup",
     "clean": "rm -rf dist"
@@ -41,5 +45,12 @@
     "url": "https://github.com/beacrea/dtcg-formulas/issues"
   },
   "homepage": "https://dtcg-formulas.org",
-  "keywords": ["dtcg", "design-tokens", "formulas", "sass", "scssdef", "parser"]
+  "keywords": [
+    "dtcg",
+    "design-tokens",
+    "formulas",
+    "sass",
+    "scssdef",
+    "parser"
+  ]
 }
