@@ -1,5 +1,10 @@
 # dtcg-formulas
 
+[![@dtcg-formulas/parser](https://img.shields.io/npm/v/@dtcg-formulas/parser?label=%40dtcg-formulas%2Fparser)](https://www.npmjs.com/package/@dtcg-formulas/parser)
+[![@dtcg-formulas/registry](https://img.shields.io/npm/v/@dtcg-formulas/registry?label=%40dtcg-formulas%2Fregistry)](https://www.npmjs.com/package/@dtcg-formulas/registry)
+[![@dtcg-formulas/spec](https://img.shields.io/npm/v/@dtcg-formulas/spec?label=%40dtcg-formulas%2Fspec)](https://www.npmjs.com/package/@dtcg-formulas/spec)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
 A documentation-first, pluggable formula layer for [DTCG](https://www.designtokens.org/tr/drafts/format/) design tokens.
 
 Define reusable token functions once, reference them from DTCG `$extensions`, and let a build step resolve the compute as each token's `$value`. The pipeline is tool-agnostic at its core, with first-class integrations for Style Dictionary, Terrazzo, and bare JSON builds.
@@ -27,7 +32,7 @@ Define reusable token functions once, reference them from DTCG `$extensions`, an
 
 ## Status
 
-**Phase 1 — Core Implementation.** Parser and registry ship as metadata-only packages today. The resolver, CLI, and executable adapters land in 0.2.0–0.3.0. See the [Roadmap](https://dtcg-formulas.org/guide/roadmap) for the full picture.
+**0.1.0 released on npm.** Parser, registry, and spec packages are publishable and installable today as the metadata foundation. The resolver (executable compute), CLI (`compile` / `lint` / `check`), and executable adapters land in 0.2.0–0.3.0. See the [Roadmap](https://dtcg-formulas.org/guide/roadmap) for the full picture.
 
 ## Pipeline at a glance
 
@@ -89,9 +94,9 @@ summary: General-purpose snapping and rounding functions.
 
 | Package | Status | Description |
 |---------|--------|-------------|
-| `@dtcg-formulas/parser` | **Shipped** | `.module.scssdef` parser |
-| `@dtcg-formulas/registry` | **Shipped** | Function registry |
-| `@dtcg-formulas/spec` | Draft (0.1.0) | Specifications (`.module.scssdef`, extension, registry) |
+| `@dtcg-formulas/parser` | **0.1.0** (released) | `.module.scssdef` parser |
+| `@dtcg-formulas/registry` | **0.1.0** (released) | Function registry |
+| `@dtcg-formulas/spec` | **0.1.0** (released) | Specifications (`.module.scssdef`, extension, registry) |
 | `@dtcg-formulas/resolver` | 0.2.0 | Formula resolver (pure core) |
 | `@dtcg-formulas/builtins` | 0.2.0 | Executable JS implementations for math built-ins |
 | `@dtcg-formulas/cli` | 0.2.0 | `compile`, `lint`, `check` verbs |

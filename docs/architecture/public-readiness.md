@@ -42,13 +42,15 @@ That's the gap `dtcg-formulas` fills: an authoring-time formula layer + an execu
 
 Tagging gaps by impact on the public-use objective:
 
-### Blockers for 0.1.0 (publishable)
+### Blockers for 0.1.0 (publishable) — :white_check_mark: resolved
 
-- **No npm publication.** Every package is `private: true` at `0.0.0`. Nothing is installable.
-- **No CJS build.** TypeScript-only output is fine for ESM consumers but breaks CJS callers.
-- **No `publishConfig`, repo/bugs/homepage/keywords.** Required for a credible npm presence.
-- **Workspace dep uses `*` not `workspace:*`.** Will publish a broken graph.
-- **No CI for tests/lint/typecheck.** Only a Pages deploy exists today.
+These were the blockers before the first publish. Kept here as a record; all resolved as of [0.1.0 on npm](https://www.npmjs.com/org/dtcg-formulas).
+
+- ~~**No npm publication.** Every package is `private: true` at `0.0.0`. Nothing is installable.~~
+- ~~**No CJS build.** TypeScript-only output is fine for ESM consumers but breaks CJS callers.~~
+- ~~**No `publishConfig`, repo/bugs/homepage/keywords.** Required for a credible npm presence.~~
+- ~~**Workspace dep uses `*` not `workspace:*`.** Will publish a broken graph.~~
+- ~~**No CI for tests/lint/typecheck.** Only a Pages deploy exists today.~~
 - **No CHANGELOG / release process.** No automated versioning; can't communicate changes.
 - **No CONTRIBUTING / SECURITY / CODE_OF_CONDUCT.** Standard bar for a public OSS library.
 - **No lint/format config.** Style isn't enforced; PRs from outside contributors will drift.
@@ -177,15 +179,14 @@ Mirrors how dart-sass and TypeScript publish diagnostics. The full code referenc
 
 | Version | Ships | Public DX |
 |---|---|---|
-| **0.1.0** *(this branch)* | Publishable `parser` + `registry` + `spec`, full education surface, architecture analysis, CI, release plumbing | Authoring + registration + documentation. No execution yet. |
+| **0.1.0** *(released)* | Published `parser` + `registry` + `spec`, full education surface, architecture analysis, CI, release plumbing | Authoring + registration + documentation. No execution yet. |
 | **0.2.0** | `resolver` + `builtins` + `cli` (compile/lint/check), JSON Schema, diagnostics-first errors | **End-to-end DX is real.** Bare-JSON consumers can install one CLI and compile their tokens. |
 | **0.3.0** | Executable adapter packages (leonardo, color-names, composite, optimal-foreground, material-shadow), Style Dictionary plugin, docs generator | Color and contrast adapters ship. SD users get a turnkey integration. |
 | **0.4.0+** | Remaining adapters, Terrazzo plugin, editor LSP, generator/recipe exploration | Full ecosystem coverage; editor-grade authoring. |
 
 ## Open questions
 
-- **npm scope.** `@dtcg-formulas/*` needs to be claimed on npm or fall back to a different scope (e.g. `@beacrea/dtcg-formulas-*`). This decision blocks 0.1.0 publication.
 - **Namespaced calls.** Should `leonardo.color(...)` be first-class in the parser, or always rewritten to `leo(...)`? Affects how adapters declare themselves.
 - **Inline expressions.** Should the resolver support expressions beyond function calls (`{a.b} + 4px`) in v0, or stay strict-call-only? (Per [vision.md](../vision) open question #3.)
 - **Adapter testing.** How do we test adapters that wrap non-deterministic external engines (color rounding, LCH gamut clipping)? Snapshot? Tolerance bands?
-- **Spec/docs key alignment.** README and spec use `"call"`; user-facing docs use `"formula"`. Decision: keep `"formula"` (it's more intuitive and already in user docs); update the spec to match before 0.1.0 ships.
+- **Spec/docs key alignment.** Spec source under `packages/spec/formula-extension-spec.md` uses `"call"`; user-facing docs settled on `"formula"`. Decision pending: align the spec to match `"formula"` in a 0.1.x patch, or migrate docs back to `"call"`. Either way, decide before 0.2.0 publishes any tooling that hardcodes the key name.
