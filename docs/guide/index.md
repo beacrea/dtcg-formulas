@@ -37,7 +37,7 @@ A design token should be able to contain:
        └───────────┬────────────┘
                    ▼
               ┌──────────┐
-              │ Resolver │  (Phase 2)
+              │ Resolver │  (0.2.0)
               └──────────┘
 ```
 
