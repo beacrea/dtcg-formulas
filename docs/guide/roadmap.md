@@ -10,7 +10,7 @@ The project is evolving toward a turnkey companion pipeline for DTCG tokens: ins
 - Publish minimal function registry contract
 - Example `.module.scssdef` files (radius, math)
 
-## Phase 1 — Core Implementation (current)
+## Phase 1 — Core Implementation :white_check_mark:
 
 - [x] Implement `.module.scssdef` parser ([#1](https://github.com/beacrea/dtcg-formulas/issues/1))
 - [x] Implement function registry ([#2](https://github.com/beacrea/dtcg-formulas/issues/2))
@@ -19,19 +19,19 @@ The project is evolving toward a turnkey companion pipeline for DTCG tokens: ins
 - [x] Ship Leonardo color definition + docs ([#8](https://github.com/beacrea/dtcg-formulas/issues/8))
 - [x] Ship color-names, modular-scale, shade/tint, fluid-size, material-shadow, composite, optimal-foreground, outline-radius definitions + docs
 
-## 0.1.0 — Public-ready foundation (this track)
+## 0.1.0 — Public-ready foundation :white_check_mark: (released)
 
-The goal is that the metadata surface is installable, versioned, and documented — but execution is still deferred. A consumer can parse, register, and document formulas today; compute comes in 0.2.0.
+The metadata surface is installable, versioned, and documented. A consumer can parse, register, and document formulas today; compute comes in 0.2.0.
 
-- Publish `@dtcg-formulas/parser`, `@dtcg-formulas/registry`, `@dtcg-formulas/spec` to npm
-- Dual ESM + CJS builds via tsup, typed exports
-- Release plumbing: Changesets, CI matrix (Node 20/22), release workflow
-- Lint/format via Biome
-- Education: concepts, authoring-a-formula, integrations, troubleshooting guides
-- Architecture doc: full public-readiness analysis and phased rollout
-- `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`
+- [x] Publish [`@dtcg-formulas/parser`](https://www.npmjs.com/package/@dtcg-formulas/parser), [`@dtcg-formulas/registry`](https://www.npmjs.com/package/@dtcg-formulas/registry), [`@dtcg-formulas/spec`](https://www.npmjs.com/package/@dtcg-formulas/spec) to npm
+- [x] Dual ESM + CJS builds via tsup, typed exports
+- [x] Release plumbing: Changesets, CI matrix (Node 20/22), release workflow
+- [x] Lint/format via Biome
+- [x] Education: concepts, authoring-a-formula, integrations, troubleshooting guides
+- [x] Architecture doc: full public-readiness analysis and phased rollout
+- [x] `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`
 
-## 0.2.0 — Compute
+## 0.2.0 — Compute (current track)
 
 The compiler lands. End-to-end DX becomes real for any DTCG consumer.
 
