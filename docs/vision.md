@@ -226,12 +226,12 @@ A generator produces multiple values or token groups from one definition. Genera
 See the actual repo layout. Summary:
 
 ```
-/packages/spec/          Specifications
-/packages/parser/        Parser (stub)
-/packages/registry/      Registry (stub)
-/packages/resolver/      Resolver (stub)
-/packages/docs/          Docs generator (stub)
-/packages/style-dictionary-plugin/  SD integration (stub)
+/packages/spec/          Specifications (0.1.0 on npm)
+/packages/parser/        Parser (0.1.0 on npm)
+/packages/registry/      Registry (0.1.0 on npm)
+/packages/resolver/      Resolver (planned 0.2.0)
+/packages/docs/          Docs generator (planned 0.3.0)
+/packages/style-dictionary-plugin/  SD integration (planned 0.3.0)
 /examples/radius/        Radius + math example
 /examples/spacing/       Spacing example (stub)
 /examples/leonardo-color/ Leonardo color example
