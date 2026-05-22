@@ -53,7 +53,7 @@ If a token is typed as a DTCG `dimension`, its resolved `$value` must match DTCG
     "org.dtcg-formulas": {
       "syntax": "scssdef@0.1",
       "definition": "tokens/functions/radius.module.scssdef#radius",
-      "call": "radius({typography.scale.typescale-15}, {shape.ratio.button}, 1px)"
+      "formula": "radius({typography.scale.typescale-15}, {shape.ratio.button}, 1px)"
     }
   }
 }
@@ -63,7 +63,7 @@ If a token is typed as a DTCG `dimension`, its resolved `$value` must match DTCG
 |-------|------|-------------|
 | `syntax` | `string` | Definition format and version. Must match pattern `scssdef@{semver-major.minor}`. |
 | `definition` | `string` | Path to the `.module.scssdef` file and function name, separated by `#`. Path is relative to the token file's repository root. |
-| `call` | `string` | The complete function call expression with resolved or referenced arguments. Token references use DTCG `{path.to.token}` syntax. |
+| `formula` | `string` | The complete function call expression with resolved or referenced arguments. Token references use DTCG `{path.to.token}` syntax. |
 
 ### 4.2 Optional fields (rich form)
 
@@ -73,7 +73,7 @@ If a token is typed as a DTCG `dimension`, its resolved `$value` must match DTCG
     "org.dtcg-formulas": {
       "syntax": "scssdef@0.1",
       "definition": "tokens/functions/radius.module.scssdef#radius",
-      "call": "radius({typography.scale.typescale-15}, {shape.ratio.button}, 1px)",
+      "formula": "radius({typography.scale.typescale-15}, {shape.ratio.button}, 1px)",
       "arguments": {
         "size": "{typography.scale.typescale-15}",
         "ratio": "{shape.ratio.button}",
@@ -132,9 +132,9 @@ tokens/functions/math.module.scssdef#snap
 
 ---
 
-## 7. Call expression format
+## 7. Formula expression format
 
-The `call` field contains a function call expression that:
+The `formula` field contains a function call expression that:
 
 * uses the function name from the definition
 * passes arguments positionally (matching the function signature)
@@ -149,7 +149,7 @@ snap(1.2 * {typography.scale.typescale-10}, 1px, ceil)
 radius({typography.scale.typescale-15}, {shape.ratio.button}, 1px)
 ```
 
-The call expression is a symbolic invocation, not executable code. Consuming toolchains resolve it against the definition and token graph.
+The formula expression is a symbolic invocation, not executable code. Consuming toolchains resolve it against the definition and token graph.
 
 ---
 
@@ -167,7 +167,7 @@ The extension may appear on any DTCG token that has a computed `$value`.
       "org.dtcg-formulas": {
         "syntax": "scssdef@0.1",
         "definition": "tokens/functions/radius.module.scssdef#radius",
-        "call": "radius({typography.scale.typescale-15}, {shape.ratio.button}, 1px)"
+        "formula": "radius({typography.scale.typescale-15}, {shape.ratio.button}, 1px)"
       }
     }
   }
@@ -186,7 +186,7 @@ Compliant toolchains should validate:
 * `syntax` matches the expected version pattern
 * `definition` path resolves to an existing `.module.scssdef` file
 * the fragment references a function that exists in that file
-* `call` uses the correct function name
+* `formula` uses the correct function name
 * argument count matches the function signature (accounting for defaults)
 * if `dependencies` is present, all paths resolve to tokens in the graph
 
@@ -200,7 +200,7 @@ Migration path:
 
 | Before | After |
 |--------|-------|
-| `"com.underline.dtcg": { "formula": "math(ceil(...))" }` | `"org.dtcg-formulas": { "syntax": "scssdef@0.1", "definition": "...#snap", "call": "snap(...)" }` |
+| `"com.underline.dtcg": { "formula": "math(ceil(...))" }` | `"org.dtcg-formulas": { "syntax": "scssdef@0.1", "definition": "...#snap", "formula": "snap(...)" }` |
 
 The `com.underline.dtcg` namespace continues to be used for file-level DTCG spec exception governance. Only the token-level `formula` field moves to the new namespace.
 
